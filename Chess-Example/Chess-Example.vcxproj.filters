@@ -13,117 +13,135 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Chessmans">
+      <UniqueIdentifier>{06b0bbff-9040-4bd9-a44c-bf9267aa499d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chessmans">
+      <UniqueIdentifier>{612d6c94-a4b4-4d4e-ad71-76a8010fe351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Chessmans\Chessman-Behaviors">
+      <UniqueIdentifier>{cc90d664-8051-4058-b5bd-19c97952b9a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Chessmans\Chessman-Behaviors">
+      <UniqueIdentifier>{d00dcca6-5a23-432b-ad4c-5e14a5554ad7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Field-Fillers">
+      <UniqueIdentifier>{966f0e08-5695-4fd6-a1b7-f1a33409960d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Field-Fillers">
+      <UniqueIdentifier>{8ed76928-9b3a-48cd-9787-b38d22cceb7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Chess-Example.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Chess-Restart\Chess-Restart\BehaviorContainer.cpp">
+    <ClCompile Include="Cell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Chess-Restart\Chess-Restart\BishopBehavior.cpp">
+    <ClCompile Include="Field.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Chess-Restart\Chess-Restart\Cell.cpp">
+    <ClCompile Include="GameController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Chess-Restart\Chess-Restart\Chessman.cpp">
+    <ClCompile Include="InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Chess-Restart\Chess-Restart\ChessmanBehavior.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="BehaviorContainer.cpp">
+      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Chess-Restart\Chess-Restart\ChessmanFactory.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="BishopBehavior.cpp">
+      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Chess-Restart\Chess-Restart\ClassicFieldFiller.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ChessmanBehavior.cpp">
+      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Chess-Restart\Chess-Restart\Field.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="KingBehavior.cpp">
+      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Chess-Restart\Chess-Restart\GameController.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="KnightBehavior.cpp">
+      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Chess-Restart\Chess-Restart\IFieldFiller.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="PawnBehavior.cpp">
+      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Chess-Restart\Chess-Restart\InputManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="QueenBehavior.cpp">
+      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Chess-Restart\Chess-Restart\KingBehavior.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="RookBehavior.cpp">
+      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Chess-Restart\Chess-Restart\KnightBehavior.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Chessman.cpp">
+      <Filter>Source Files\Chessmans</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Chess-Restart\Chess-Restart\PawnBehavior.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ChessmanFactory.cpp">
+      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Chess-Restart\Chess-Restart\QueenBehavior.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="IFieldFiller.cpp">
+      <Filter>Source Files\Field-Fillers</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Chess-Restart\Chess-Restart\RookBehavior.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ClassicFieldFiller.cpp">
+      <Filter>Source Files\Field-Fillers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\RookBehavior.h">
+    <ClInclude Include="ClassicFieldFiller.h">
+      <Filter>Header Files\Field-Fillers</Filter>
+    </ClInclude>
+    <ClInclude Include="IFieldFiller.h">
+      <Filter>Header Files\Field-Fillers</Filter>
+    </ClInclude>
+    <ClInclude Include="Cell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\QueenBehavior.h">
+    <ClInclude Include="CircularList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\PawnBehavior.h">
+    <ClInclude Include="Field.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\MoveInfo.h">
+    <ClInclude Include="GameController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\KnightBehavior.h">
+    <ClInclude Include="InputManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\KingBehavior.h">
+    <ClInclude Include="MoveInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\InputManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="BehaviorContainer.h">
+      <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\IFieldFiller.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="BishopBehavior.h">
+      <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\IChessmanBehavior.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="IChessmanBehavior.h">
+      <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\GameController.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="KingBehavior.h">
+      <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\Field.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="KnightBehavior.h">
+      <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\ClassicFieldFiller.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PawnBehavior.h">
+      <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\CircularList.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="QueenBehavior.h">
+      <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\ChessmanType.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="RookBehavior.h">
+      <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\Chessman.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ChassmansCharacters.h">
+      <Filter>Header Files\Chessmans</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\ChassmansCharacters.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Chessman.h">
+      <Filter>Header Files\Chessmans</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\Cell.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\BishopBehavior.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Chess-Restart\Chess-Restart\BehaviorContainer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ChessmanType.h">
+      <Filter>Header Files\Chessmans</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

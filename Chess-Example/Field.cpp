@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "../Chess-Restart/InputManager.h"
+#include "../Chess-Example/InputManager.h"
 #include "Field.h"
 #include <iostream>
 #include "ChessmanType.h"
