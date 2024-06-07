@@ -1,9 +1,11 @@
 #pragma once
 #include "Chessman.h"
+#include "IDrawer.h"
 
 namespace cells
 {
-	class Cell
+	class Cell 
+		: public drawers::IDrawer
 	{
 	public:
 		Cell() : _column(0), _row(0), _chessman(nullptr) {}
@@ -34,7 +36,7 @@ namespace cells
 		void SetChessman(chessmans::Chessman* chessman);
 		void Clean();
 
-		void DrawCell() const;
+		void Draw() const override;
 
 		chessmans::ChessmanType OccupiedBy() { return !IsEmpty() ? _chessman->GetType() : chessmans::None; }
 		int OccupiedByTeam() { return _chessman->GetTeamIndex(); }

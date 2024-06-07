@@ -3,14 +3,19 @@
 #include "IFieldFiller.h"
 #include "CircularList.h"
 #include "MoveInfo.h"
+#include "FieldDrawer.h"
 
 using namespace cells;
 
 namespace chessControllers
 {
-	class Field
+	class Field 
+		: public drawers::IDrawer
 	{
 	public:
+		const int SIZE_X = 8;
+		const int SIZE_Y = 8;
+
 		Field(int sizeX, int sizeY, structs::CircularList<int> movesOrder);
 		~Field();
 
@@ -26,12 +31,9 @@ namespace chessControllers
 		bool Execute(info::MoveInfo& moveInfo);
 		bool ExecutePredetermined(info::MoveInfo& moveInfo);
 
-		void Draw() const;
+		void Draw() const override { drawers::FieldDrawer::DrawField(_field, SIZE_X, SIZE_Y); }
 
 	private:
-		const int SIZE_X = 8;
-		const int SIZE_Y = 8;
-
 		structs::CircularList<int> _movesOrder;
 		int _currentTeam;
 

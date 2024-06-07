@@ -13,7 +13,7 @@ namespace chessControllers
 		~GameController();
 
 		info::MoveInfo MoveNext();
-		void PrintState();
+		void PrintState() { _field->Draw(); }
 	private:
 		const int FIELD_SIZE = 8;
 

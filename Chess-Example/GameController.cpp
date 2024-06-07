@@ -39,9 +39,4 @@ namespace chessControllers
 
 		return moveInfo;
 	}
-
-	void GameController::PrintState()
-	{
-		_field->Draw();
-	}
 }

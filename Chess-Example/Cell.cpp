@@ -1,10 +1,7 @@
 ﻿#pragma once
 #include "Cell.h"
 #include <iostream>
-#include <Windows.h>
 #include "Chessman.h"
-#include <consoleapi2.h>
-#include <processenv.h>
 
 using namespace chessmans;
 
@@ -70,16 +67,8 @@ namespace cells
 		_chessman = nullptr;
 	}
 
-	static void SetConsoleColor(int textColor, int bgColor) 
+	void Cell::Draw() const
 	{
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (textColor + (bgColor * 16)));
-	}
-
-	void Cell::DrawCell() const
-	{
-		if ((_row + _column) % 2 == 0)
-			SetConsoleColor(15, 1); // White-blue
-
 		if (_chessman != nullptr)
 		{
 			std::wcout << ' ' << _chessman->GetDraw() << ' ';
@@ -88,7 +77,5 @@ namespace cells
 		{
 			std::wcout << "   ";
 		}
-
-		SetConsoleColor(15, 0); // white-black
 	}
 }

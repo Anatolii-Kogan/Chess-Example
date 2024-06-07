@@ -196,32 +196,4 @@ namespace chessControllers
 			return false;
 		}
 	}
-
-	void Field::Draw() const
-	{
-		for (int row = 0; row < SIZE_Y; ++row)
-		{
-			for (int column = 0; column < SIZE_X; ++column)
-			{
-				_field[row * SIZE_X + column].DrawCell();
-			}
-
-			wcout << " #" << SIZE_Y - row << endl;
-		}
-
-		for (int k = 1; k <= SIZE_X; ++k)
-		{
-			wcout << " # ";
-		}
-
-		wcout << endl;
-
-		for (int l = 0; l < SIZE_X; ++l)
-		{
-			char columnLetter = 'A' + l;
-			wcout << ' ' << columnLetter << ' ';
-		}
-
-		wcout << endl << endl;
-	}
 }
