@@ -49,24 +49,18 @@ namespace chessControllers
 			int stepRow = (row2 > row1) ? 1 : (row2 < row1) ? -1 : 0;
 			int stepColumn = (column2 > column1) ? 1 : (column2 < column1) ? -1 : 0;
 
-			int indexRow = row1 + stepRow;
-			int indexColumn = column1 + stepColumn;
+			int currentRow = row1 + stepRow;
+			int currentColumn = column1 + stepColumn;
 
-			while (indexRow != row2 || indexColumn != column2)
+			while (currentRow != row2 || currentColumn != column2)
 			{
-				if (!_field[GetIndex(indexRow, indexColumn)].IsEmpty())
+				if (!_field[GetIndex(currentRow, currentColumn)].IsEmpty())
 				{
 					return true;
 				}
 
-				if (indexRow != row2)
-				{
-					indexRow += stepRow;
-				}
-				if (indexColumn != column2)
-				{
-					indexColumn += stepColumn;
-				}
+				currentRow += stepRow;
+				currentColumn += stepColumn;
 			}
 		}
 
