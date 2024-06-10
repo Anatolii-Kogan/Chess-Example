@@ -1,26 +1,45 @@
-#pragma once
+#ifndef FIELD_H
+#define FIELD_H
+
 #include "Cell.h"
-#include "IFieldFiller.h"
 #include "CircularList.h"
-#include "MoveInfo.h"
 #include "FieldDrawer.h"
+#include "IFieldFiller.h"
+#include "MoveInfo.h"
 
 using namespace cells;
 
 namespace chessControllers
 {
+	template<int SIZE_X = 8, int SIZE_Y = 8>
 	class Field 
 		: public drawers::IDrawer
 	{
+	private:
+		structs::CircularList<int> _movesOrder;
+		int _currentTeam;
+
+		Cell _field[SIZE_X * SIZE_Y];
+
+		int GetRowByIndex(int index) { return index / SIZE_X; }
+		int GetColumnByIndex(int index) { return index % SIZE_X; }
+
+		int GetIndex(int row, int column) { return row * SIZE_X + column; }
+
+		void SelectCells(info::MoveInfo& moveInfo);
+		bool ReleaseSelection(int selectedIndex, int moveToIndex, chessmans::ChessmanType& taken);
+
+		bool TrySelectCell(const int index, info::MoveInfo& moveInfo);
+		bool CheckObstacles(int index1, int index2);
+		bool IsCastling(Cell* selected, Cell* moveTo, bool haveObstacles);
+
 	public:
-		const int SIZE_X = 8;
-		const int SIZE_Y = 8;
 
-		Field(int sizeX, int sizeY, structs::CircularList<int> movesOrder);
-		~Field();
+		constexpr Field(structs::CircularList<int> movesOrder);
 
-		void FillField(const fillers::IFieldFiller* filler)
+		void FillField(const fillers::IFieldFiller* filler, structs::CircularList<int> movesOrder)
 		{
+			_movesOrder = movesOrder;
 			for (int i = SIZE_X * SIZE_Y - 1; i >= 0; --i)
 			{
 				(_field + i)->SetChessman(filler->MoveNext());
@@ -31,23 +50,21 @@ namespace chessControllers
 		bool Execute(info::MoveInfo& moveInfo);
 		bool ExecutePredetermined(info::MoveInfo& moveInfo);
 
-		void Draw() const override { drawers::FieldDrawer::DrawField(_field, SIZE_X, SIZE_Y); }
+		void Draw() const override 
+		{ 
+			for (int row = 0; row < SIZE_Y; ++row)
+			{
+				for (int column = 0; column < SIZE_X; ++column)
+				{
+					drawers::FieldDrawer::DrawCell<SIZE_X, SIZE_Y>(&(_field[row * SIZE_X + column]), row, column);
+				}
+			}
 
-	private:
-		structs::CircularList<int> _movesOrder;
-		int _currentTeam;
-
-		Cell* _field;
-
-		int GetRowByIndex(int index) { return index / SIZE_X; }
-		int GetColumnByIndex(int index) { return index % SIZE_X; }
-		int GetIndex(int row, int column) { return row * SIZE_X + column; }
-
-		void SelectCells(info::MoveInfo& moveInfo);
-		bool ReleaseSelection(int selectedIndex, int moveToIndex, chessmans::ChessmanType& taken);
-
-		bool TrySelectCell(const int index, info::MoveInfo& moveInfo);
-		bool CheckObstacles(int index1, int index2);
-		bool IsCastling(Cell* selected, Cell* moveTo, bool haveObstacles);
+			drawers::FieldDrawer::DrawFieldBasement<SIZE_X>();
+		}
 	};
 }
+
+#include "Field.cpp"
+
+#endif // !FIELD_H

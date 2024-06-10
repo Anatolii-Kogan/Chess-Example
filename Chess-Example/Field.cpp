@@ -1,24 +1,22 @@
 ﻿#pragma once
 #include "../Chess-Example/InputManager.h"
-#include "Field.h"
-#include <iostream>
-#include "ChessmanType.h"
 #include "Cell.h"
-#include "IFieldFiller.h"
+#include "ChessmanType.h"
+#include "Field.h"
 #include <cmath>
+#include <iostream>
 #include <stdexcept>
 
 using namespace std;
 
 namespace chessControllers
 {
-	Field::Field(int sizeX, int sizeY, structs::CircularList<int> movesOrder) : SIZE_X(sizeX), SIZE_Y(sizeY), _movesOrder(movesOrder)
+	template<int SIZE_X, int SIZE_Y>
+	constexpr Field<SIZE_X, SIZE_Y>::Field(structs::CircularList<int> movesOrder) : _movesOrder(movesOrder)
 	{
 		if (SIZE_X <= 0 || SIZE_Y <= 0) {
 			throw std::invalid_argument("Field size have to be >0");
 		}
-
-		_field = new Cell[SIZE_X * SIZE_Y];
 
 		for (int row = 0; row < SIZE_Y; ++row)
 		{
@@ -31,12 +29,8 @@ namespace chessControllers
 		_currentTeam = _movesOrder.GetNext();
 	}
 
-	Field::~Field()
-	{
-		delete[] _field;
-	}
-
-	bool Field::CheckObstacles(int index1, int index2)
+	template<int SIZE_X, int SIZE_Y>
+	bool Field<SIZE_X, SIZE_Y>::CheckObstacles(int index1, int index2)
 	{
 		int column1 = GetColumnByIndex(index1);
 		int row1 = GetRowByIndex(index1);
@@ -67,7 +61,8 @@ namespace chessControllers
 		return false;
 	}
 
-	bool Field::ExecutePredetermined(info::MoveInfo& moveInfo)
+	template<int SIZE_X, int SIZE_Y>
+	bool Field<SIZE_X, SIZE_Y>::ExecutePredetermined(info::MoveInfo& moveInfo)
 	{
 		bool result = ReleaseSelection(moveInfo.SelectedIndex, moveInfo.MoveToIndex, moveInfo.Taken);
 		if (result == true)
@@ -78,7 +73,8 @@ namespace chessControllers
 		return result;
 	}
 
-	bool Field::Execute(info::MoveInfo& moveInfo)
+	template<int SIZE_X, int SIZE_Y>
+	bool Field<SIZE_X, SIZE_Y>::Execute(info::MoveInfo& moveInfo)
 	{
 		SelectCells(moveInfo);
 		bool result = ExecutePredetermined(moveInfo);
@@ -88,7 +84,8 @@ namespace chessControllers
 		return result;
 	}
 
-	void Field::SelectCells(info::MoveInfo& moveInfo)
+	template<int SIZE_X, int SIZE_Y>
+	void Field<SIZE_X, SIZE_Y>::SelectCells(info::MoveInfo& moveInfo)
 	{
 		int selectedIndex;
 
@@ -100,7 +97,8 @@ namespace chessControllers
 		}
 	}
 
-	bool Field::TrySelectCell(const int index, info::MoveInfo& moveInfo)
+	template<int SIZE_X, int SIZE_Y>
+	bool Field<SIZE_X, SIZE_Y>::TrySelectCell(const int index, info::MoveInfo& moveInfo)
 	{
 		if (moveInfo.IsReadyToMove())
 		{
@@ -132,7 +130,8 @@ namespace chessControllers
 		return true;
 	}
 
-	bool Field::ReleaseSelection(int selectedIndex, int moveToIndex, chessmans::ChessmanType& taken)
+	template<int SIZE_X, int SIZE_Y>
+	bool Field<SIZE_X, SIZE_Y>::ReleaseSelection(int selectedIndex, int moveToIndex, chessmans::ChessmanType& taken)
 	{
 		bool result;
 		bool haveObstacles = CheckObstacles(selectedIndex, moveToIndex);
@@ -165,7 +164,8 @@ namespace chessControllers
 		return result;
 	}
 
-	bool Field::IsCastling(Cell* selected, Cell* moveTo, bool haveObstacles)
+	template<int SIZE_X, int SIZE_Y>
+	bool Field<SIZE_X, SIZE_Y>::IsCastling(Cell* selected, Cell* moveTo, bool haveObstacles)
 	{
 		if (haveObstacles)
 		{

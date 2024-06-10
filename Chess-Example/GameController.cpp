@@ -9,20 +9,18 @@ using namespace cells;
 namespace chessControllers
 {
 	using namespace std;
+	constexpr int GameController::FIELD_SIZE;
 
-	GameController::GameController()
+	GameController::GameController(structs::CircularList<int> movesOrder) : _field(Field<FIELD_SIZE, FIELD_SIZE>(movesOrder))
 	{
 		_behaviors = new BehaviorContainer();
-		auto movesOrder = structs::CircularList<int>({1, -1});
 		_filler = new fillers::ClassicFieldFiller(_behaviors, FIELD_SIZE, movesOrder);
 
-		_field = new Field(FIELD_SIZE, FIELD_SIZE, movesOrder);
-		_field->FillField(_filler);
+		_field.FillField(_filler, movesOrder);
 	}
 
 	GameController::~GameController()
 	{
-		delete _field;
 		delete _filler;
 		delete _behaviors;
 	}
@@ -30,7 +28,7 @@ namespace chessControllers
 	info::MoveInfo GameController::MoveNext()
 	{
 		info::MoveInfo moveInfo;
-		bool result = _field->Execute(moveInfo);
+		bool result = _field.Execute(moveInfo);
 		if (result == false)
 		{
 			wcout << "You can't move like that. Try again." << endl;
