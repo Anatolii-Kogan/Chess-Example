@@ -9,15 +9,16 @@ namespace chessControllers
 	class GameController
 	{
 	public:
-		GameController();
+		GameController(structs::CircularList<int> movesOrder);
 		~GameController();
 
 		info::MoveInfo MoveNext();
-		void PrintState() { _field->Draw(); }
+		void PrintState() { _field.Draw(); }
 	private:
-		const int FIELD_SIZE = 8;
+		static constexpr int FIELD_SIZE = 8;
 
-		Field* _field;
+		Field<FIELD_SIZE, FIELD_SIZE> _field;
+
 		fillers::IFieldFiller* _filler;
 		chessmans::BehaviorContainer* _behaviors;
 	};

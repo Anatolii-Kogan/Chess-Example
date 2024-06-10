@@ -1,5 +1,8 @@
 #pragma once
+#include <cstring>
 #include <initializer_list>
+#include <utility>
+
 namespace structs
 {
 	template<typename T>

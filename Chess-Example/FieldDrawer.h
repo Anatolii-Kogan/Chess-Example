@@ -1,9 +1,10 @@
 #pragma once
 #include <iostream>
-#include "Cell.h"
 #include <Windows.h>
 #include <consoleapi2.h>
 #include <processenv.h>
+#include "IDrawer.h"
+
 using namespace std;
 
 namespace drawers
@@ -11,23 +12,25 @@ namespace drawers
 	class FieldDrawer
 	{
 	public:
-		static void DrawField(const cells::Cell* cells, int sizeX, int sizeY)
+		template<int sizeX, int sizeY>
+		static void DrawCell(const drawers::IDrawer* cell, int row, int column )
 		{
-			for (int row = 0; row < sizeY; ++row)
+			if ((row + column) % 2 == 0)
+				SetConsoleColor(15, 1); // White-blue
+
+			cell->Draw();
+
+			SetConsoleColor(15, 0); // white-black
+
+			if (column == sizeX - 1)
 			{
-				for (int column = 0; column < sizeX; ++column)
-				{
-					if ((row + column) % 2 == 0)
-						SetConsoleColor(15, 1); // White-blue
-
-					cells[row* sizeX + column].Draw();
-
-					SetConsoleColor(15, 0); // white-black
-				}
-
 				wcout << " #" << sizeY - row << endl;
 			}
+		}
 
+		template<int sizeX>
+		static void DrawFieldBasement()
+		{
 			for (int k = 1; k <= sizeX; ++k)
 			{
 				wcout << " # ";

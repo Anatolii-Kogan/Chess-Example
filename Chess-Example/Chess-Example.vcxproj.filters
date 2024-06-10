@@ -143,5 +143,11 @@
     <ClInclude Include="ChessmanType.h">
       <Filter>Header Files\Chessmans</Filter>
     </ClInclude>
+    <ClInclude Include="FieldDrawer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IDrawer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
