@@ -16,11 +16,11 @@ namespace drawers
 		static void DrawCell(const drawers::IDrawer* cell, int row, int column )
 		{
 			if ((row + column) % 2 == 0)
-				SetConsoleColor(15, 1); // White-blue
+				SetConsoleColor<15, 1>(); // White-blue
 
 			cell->Draw();
 
-			SetConsoleColor(15, 0); // white-black
+			SetConsoleColor<15, 0>(); // white-black
 
 			if (column == sizeX - 1)
 			{
@@ -48,7 +48,8 @@ namespace drawers
 		}
 
 	private:
-		static void SetConsoleColor(int textColor, int bgColor)
+		template<int textColor, int bgColor>
+		static void SetConsoleColor()
 		{
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (textColor + (bgColor * 16)));
 		}
