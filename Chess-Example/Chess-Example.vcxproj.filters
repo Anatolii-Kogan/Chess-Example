@@ -31,6 +31,9 @@
     <Filter Include="Source Files\Field-Fillers">
       <UniqueIdentifier>{8ed76928-9b3a-48cd-9787-b38d22cceb7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Drawers">
+      <UniqueIdentifier>{89aa778c-a81a-4fa1-934f-31479a27d31c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Chess-Example.cpp">
@@ -144,10 +147,10 @@
       <Filter>Header Files\Chessmans</Filter>
     </ClInclude>
     <ClInclude Include="FieldDrawer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Drawers</Filter>
     </ClInclude>
     <ClInclude Include="IDrawer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Drawers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

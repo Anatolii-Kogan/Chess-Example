@@ -17,27 +17,9 @@ namespace chessmans
 		SetBehavior(behavior);
 	}
 
-	void Chessman::MarkAsDirty()
-	{
-		if (!_isDirty)
-		{
-			_isDirty = true;
-		}
-	}
-
 	void Chessman::SetBehavior(IChessmanBehavior* behavior)
 	{
 		_behavior = behavior;
-	}
-
-	bool Chessman::IsDirty() const
-	{
-		return _isDirty;
-	}
-
-	bool Chessman::IsFriendly(const Chessman* cellOccupant) const
-	{
-		return _teamIndex == (*cellOccupant)._teamIndex;
 	}
 
 	bool Chessman::ValidateMove(int directionX, int directionY) const

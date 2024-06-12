@@ -19,18 +19,23 @@ namespace chessmans
 		Chessman(int teamIndex, int attackDirX, int attackDirY);
 		Chessman(int teamIndex, int attackDirX, int attackDirY, IChessmanBehavior* behavior);
 
-		void MarkAsDirty();
-		bool IsDirty() const;
+		void MarkAsDirty()
+		{
+			if (!_isDirty)
+			{
+				_isDirty = true;
+			}
+		}
+		bool IsDirty() const { return _isDirty; }
+
+		bool IsFriendly(const Chessman* cellOccupant) const { return _teamIndex == (*cellOccupant)._teamIndex; }
+		bool CanIgnoreObstacles() const { return _behavior->CanIgnoreObstacles(); }
 
 		void SetBehavior(IChessmanBehavior* behavior);
 
-		bool IsFriendly(const Chessman* cellOccupant) const;
-
 		bool ValidateMove(int directionX, int directionY) const;
-
 		bool ValidateAttack(int directionX, int directionY, const Chessman* competitiveChessman) const;
 
-		bool CanIgnoreObstacles() const { return _behavior->CanIgnoreObstacles(); }
 		ChessmanType GetType() { return _behavior->GetType(); }
 		int GetCost() { return _behavior->GetType(); }
 
