@@ -58,14 +58,15 @@ namespace structs
 
 		bool TryGetNext(T** ptrNext) const
 		{
-			if (!IsEmpty() && _current <= _end)
+			if (IsEmpty() || _current > _end)
 			{
-				*ptrNext = *_current;
-				++_current;
-				return true;
+				return false;
 			}
 
-			return false;
+			*ptrNext = *_current;
+			++_current;
+
+			return true;
 		}
 
 		bool IsEmpty() const { return _begin == nullptr || _end == nullptr; }
