@@ -11,6 +11,7 @@ namespace structs
 
 		T** _begin;
 		T** _end;
+		mutable T** _current;
 
 	public:
 		void Set(int index, T* value)
@@ -30,6 +31,11 @@ namespace structs
 			if (ptr < _begin || _begin == nullptr)
 			{
 				_begin = ptr;
+
+				if (_current < _begin)
+				{
+					_current = _begin;
+				}
 			}
 		}
 
@@ -47,14 +53,15 @@ namespace structs
 
 			_begin = nullptr;
 			_end = nullptr;
+			_current = nullptr;
 		}
 
-		bool TryGetNext(T** ptrNext)
+		bool TryGetNext(T** ptrNext) const
 		{
-			if (!IsEmpty() && _begin <= _end)
+			if (!IsEmpty() && _current <= _end)
 			{
-				*ptrNext = *_begin;
-				++_begin;
+				*ptrNext = *_current;
+				++_current;
 				return true;
 			}
 
