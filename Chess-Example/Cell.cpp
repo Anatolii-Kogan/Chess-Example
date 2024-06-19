@@ -2,25 +2,63 @@
 #include "Cell.h"
 #include <iostream>
 #include "Chessman.h"
+#include "IIterator.h"
 
 using namespace chessmans;
 
 namespace cells
 {
-	bool Cell::TryMoveTo(Cell* moveToCell, bool haveObstacle)
+	bool Cell::TryMoveTo(const structs::IIterator<Cell>& line, int directionX, int directionY)
 	{
-		if (haveObstacle && !_chessman->CanIgnoreObstacles())
+		if (!Cell::CanIgnoreObstacles(line))
 		{
 			return false;
 		}
 
-		int directionX = moveToCell->_column - _column;
-		int directionY = moveToCell->_row - _row;
-
-		bool result = false;
-		if (!moveToCell->IsEmpty())
+		if (directionY == 0 && Cell::IsCastling(line.GetFirst(), line.GetLast()))
 		{
-			result = _chessman->ValidateAttack(directionX, directionY, moveToCell->_chessman);
+			Cell* cellForKing = nullptr;
+			Cell* cellForRook = nullptr;
+
+			line.ResetIterator();
+			if (line.GetFirst()->OccupiedBy() == chessmans::King)
+			{
+				int iterations = 2;
+				while (line.TryGetNext(&cellForKing) && iterations != 0)
+				{
+					cellForRook = cellForKing;
+					--iterations;
+				}
+			}
+			else if (line.GetFirst()->OccupiedBy() == chessmans::Rook)
+			{
+				Cell* cell;
+
+				while (line.TryGetNext(&cell))
+				{
+					if (cell != line.GetLast())
+					{
+						cellForKing = cellForRook;
+						cellForRook = cell;
+					}
+				}
+			}
+
+			line.GetFirst()->MoveTo(cellForKing);
+			line.GetLast()->MoveTo(cellForRook);
+
+			return true;
+		}
+
+		return line.GetFirst()->TryMoveTo(line.GetLast(), directionX, directionY);
+	}
+
+	bool Cell::TryMoveTo(Cell* moveTo, int directionX, int directionY)
+	{
+		bool result = false;
+		if (!moveTo->IsEmpty())
+		{
+			result = _chessman->ValidateAttack(directionX, directionY, moveTo->_chessman);
 		}
 		else
 		{
@@ -29,9 +67,10 @@ namespace cells
 
 		if (result == true)
 		{
-			MoveTo(moveToCell);
+			MoveTo(moveTo);
 			return true;
 		}
+
 		return false;
 	}
 
@@ -77,5 +116,46 @@ namespace cells
 		{
 			std::wcout << "   ";
 		}
+	}
+
+	bool Cell::IsCastling(Cell* selected, Cell* moveTo)
+	{
+		if (selected->IsEmpty() || moveTo->IsEmpty()
+			|| selected->IsChessmanDirty() || moveTo->IsChessmanDirty())
+		{
+			return false;
+		}
+
+		switch (selected->OccupiedBy())
+		{
+		case chessmans::King:
+			return moveTo->OccupiedBy() == chessmans::Rook;
+
+		case chessmans::Rook:
+			return moveTo->OccupiedBy() == chessmans::King;
+
+		default:
+			return false;
+		}
+	}
+
+	bool Cell::CanIgnoreObstacles(const structs::IIterator<Cell>& line)
+	{
+		Cell* firstCell = line.GetFirst();
+		Cell* lastCell = line.GetLast();
+
+		line.ResetIterator();
+		Cell* cell;
+		while (line.TryGetNext(&cell))
+		{
+			if (!cell->IsEmpty()
+				&& cell != firstCell && cell != lastCell
+				&& !firstCell->_chessman->CanIgnoreObstacles())
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 }

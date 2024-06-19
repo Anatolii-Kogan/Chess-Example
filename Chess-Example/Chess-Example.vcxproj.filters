@@ -31,8 +31,11 @@
     <Filter Include="Source Files\Field-Fillers">
       <UniqueIdentifier>{8ed76928-9b3a-48cd-9787-b38d22cceb7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Structs">
+      <UniqueIdentifier>{a72d829b-4c6f-4e2d-8e3f-bc3eedab007b}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Header Files\Drawers">
-      <UniqueIdentifier>{89aa778c-a81a-4fa1-934f-31479a27d31c}</UniqueIdentifier>
+      <UniqueIdentifier>{6708d7e5-6675-44b7-b7fe-891cd78c597d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -98,9 +101,6 @@
     <ClInclude Include="Cell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CircularList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Field.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -146,11 +146,20 @@
     <ClInclude Include="ChessmanType.h">
       <Filter>Header Files\Chessmans</Filter>
     </ClInclude>
+    <ClInclude Include="CircularList.h">
+      <Filter>Header Files\Structs</Filter>
+    </ClInclude>
+    <ClInclude Include="LineArray.h">
+      <Filter>Header Files\Structs</Filter>
+    </ClInclude>
     <ClInclude Include="FieldDrawer.h">
       <Filter>Header Files\Drawers</Filter>
     </ClInclude>
     <ClInclude Include="IDrawer.h">
       <Filter>Header Files\Drawers</Filter>
+    </ClInclude>
+    <ClInclude Include="IIterator.h">
+      <Filter>Header Files\Structs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

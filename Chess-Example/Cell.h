@@ -1,6 +1,7 @@
 #pragma once
 #include "Chessman.h"
 #include "IDrawer.h"
+#include "IIterator.h"
 
 namespace cells
 {
@@ -8,8 +9,7 @@ namespace cells
 		: public drawers::IDrawer
 	{
 	public:
-		Cell() : _column(0), _row(0), _chessman(nullptr) {}
-		Cell(int column, int row) : _column(column), _row(row), _chessman(nullptr){}
+		Cell() = default;
 		~Cell()
 		{
 			if (_chessman != nullptr)
@@ -18,14 +18,17 @@ namespace cells
 			}
 		}
 
-		bool IsEmpty() const { return _chessman == nullptr; }
+		static bool CanIgnoreObstacles(const structs::IIterator<Cell>& line);
 
 		/// <summary>
 		/// Try move chessman with chessman's move abilities validation
 		/// </summary>
 		/// <param name="moveToCell">: try move chessman from this cell to moveToCell cell</param>
 		/// <returns>true - move was success; false - can't move like that</returns>
-		bool TryMoveTo(Cell* moveToCell, bool haveObstacle);
+		bool TryMoveTo(Cell* moveTo, int directionX, int directionY);
+
+
+		static bool TryMoveTo(const structs::IIterator<Cell>& line, int directionX, int directionY);
 
 		/// <summary>
 		/// Move chessman without chessman's move abilities validation
@@ -38,13 +41,13 @@ namespace cells
 
 		void Draw() const override;
 
+		bool IsEmpty() const { return _chessman == nullptr; }
 		chessmans::ChessmanType OccupiedBy() { return !IsEmpty() ? _chessman->GetType() : chessmans::None; }
 		int OccupiedByTeam() { return _chessman->GetTeamIndex(); }
 		bool IsChessmanDirty() { return _chessman->IsDirty(); }
 
+		static bool IsCastling(Cell* selected, Cell* moveTo);
 	private:
-		int _column;
-		int _row;
 		chessmans::Chessman* _chessman;
 	};
 }

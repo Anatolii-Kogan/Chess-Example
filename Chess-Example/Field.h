@@ -6,6 +6,11 @@
 #include "FieldDrawer.h"
 #include "IFieldFiller.h"
 #include "MoveInfo.h"
+#include "LineArray.h"
+
+#ifdef DEBUG
+#include <stdexcept>
+#endif
 
 using namespace cells;
 
@@ -20,18 +25,31 @@ namespace chessControllers
 		int _currentTeam;
 
 		Cell _field[SIZE_X * SIZE_Y];
+		structs::LineArray<Cell, SIZE_X> _line;
 
 		int GetRowByIndex(int index) { return index / SIZE_X; }
 		int GetColumnByIndex(int index) { return index % SIZE_X; }
 
-		int GetIndex(int row, int column) { return row * SIZE_X + column; }
+		int GetIndex(int row, int column) 
+		{ 
+#ifdef DEBUG
+			if (row > SIZE_Y - 1)
+			{
+				throw std::out_of_range("Row out of range");
+			}
+			if (column > SIZE_X - 1)
+			{
+				throw std::out_of_range("Column out of range");
+			}
+#endif
+			return row * SIZE_X + column; 
+		}
 
 		void SelectCells(info::MoveInfo& moveInfo);
 		bool ReleaseSelection(int selectedIndex, int moveToIndex, chessmans::ChessmanType& taken);
 
 		bool TrySelectCell(const int index, info::MoveInfo& moveInfo);
-		bool CheckObstacles(int index1, int index2);
-		bool IsCastling(Cell* selected, Cell* moveTo, bool haveObstacles);
+		bool TryGetLine(int index1, int index2);
 
 	public:
 

@@ -1,10 +1,12 @@
 #pragma once
 #include <stdexcept>
+#include "IIterator.h"
 
 namespace structs
 {
 	template<typename T, size_t max_size>
-	struct LineArray
+	struct LineArray 
+		: public IIterator<T>
 	{
 	private:
 		T* _data[max_size];
@@ -39,6 +41,9 @@ namespace structs
 			}
 		}
 
+		T* GetFirst() const override { return *_begin; }
+		T* GetLast() const override { return *_end; }
+
 		void Reset()
 		{
 			if (IsEmpty())
@@ -53,10 +58,10 @@ namespace structs
 
 			_begin = nullptr;
 			_end = nullptr;
-			_current = nullptr;
+			ResetIterator();
 		}
 
-		bool TryGetNext(T** ptrNext) const
+		bool TryGetNext(T** ptrNext) const override
 		{
 			if (IsEmpty() || _current > _end)
 			{
@@ -68,6 +73,9 @@ namespace structs
 
 			return true;
 		}
+
+		void ResetIterator() const override { _current = _begin; }
+
 
 		bool IsEmpty() const { return _begin == nullptr || _end == nullptr; }
 	};

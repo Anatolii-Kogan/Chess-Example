@@ -157,6 +157,8 @@
     <ClInclude Include="Field.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="FieldDrawer.h" />
+    <ClInclude Include="IIterator.h" />
+    <ClInclude Include="LineArray.h" />
     <ClInclude Include="IDrawer.h" />
     <ClInclude Include="IChessmanBehavior.h" />
     <ClInclude Include="IFieldFiller.h" />

@@ -8,6 +8,7 @@
 #include <stdexcept>
 
 using namespace std;
+using namespace cells;
 
 namespace chessControllers
 {
@@ -18,20 +19,22 @@ namespace chessControllers
 			throw std::invalid_argument("Field size have to be >0");
 		}
 
-		for (int row = 0; row < SIZE_Y; ++row)
+		/*for (int row = 0; row < SIZE_Y; ++row)
 		{
 			for (int column = 0; column < SIZE_X; ++column)
 			{
 				_field[row * SIZE_X + column] = cells::Cell(column, row);
 			}
-		}
+		}*/
 
 		_currentTeam = _movesOrder.GetNext();
 	}
 
 	template<int SIZE_X, int SIZE_Y>
-	bool Field<SIZE_X, SIZE_Y>::CheckObstacles(int index1, int index2)
+	bool Field<SIZE_X, SIZE_Y>::TryGetLine(int index1, int index2)
 	{
+		_line.Reset();
+
 		int column1 = GetColumnByIndex(index1);
 		int row1 = GetRowByIndex(index1);
 
@@ -43,19 +46,24 @@ namespace chessControllers
 			int stepRow = (row2 > row1) ? 1 : (row2 < row1) ? -1 : 0;
 			int stepColumn = (column2 > column1) ? 1 : (column2 < column1) ? -1 : 0;
 
-			int currentRow = row1 + stepRow;
-			int currentColumn = column1 + stepColumn;
+			int currentRow = row1;
+			int currentColumn = column1;
 
+			//TODO: reculcalate	index
+			int index = 0;
+			Cell* cell;
 			while (currentRow != row2 || currentColumn != column2)
 			{
-				if (!_field[GetIndex(currentRow, currentColumn)].IsEmpty())
-				{
-					return true;
-				}
+				cell = &_field[GetIndex(currentRow, currentColumn)];
+				_line.Set(index++, cell);
 
 				currentRow += stepRow;
 				currentColumn += stepColumn;
 			}
+			cell = &_field[GetIndex(currentRow, currentColumn)];
+			_line.Set(index++, cell);
+
+			return true;
 		}
 
 		return false;
@@ -133,61 +141,18 @@ namespace chessControllers
 	template<int SIZE_X, int SIZE_Y>
 	bool Field<SIZE_X, SIZE_Y>::ReleaseSelection(int selectedIndex, int moveToIndex, chessmans::ChessmanType& taken)
 	{
-		bool result;
-		bool haveObstacles = CheckObstacles(selectedIndex, moveToIndex);
+		bool result = false;
 
-		if (!IsCastling(&_field[selectedIndex], &_field[moveToIndex], haveObstacles))
+		int directionX = GetColumnByIndex(moveToIndex) - GetColumnByIndex(selectedIndex);
+		int directionY = GetRowByIndex(moveToIndex) - GetRowByIndex(selectedIndex);
+
+		if (!TryGetLine(selectedIndex, moveToIndex))
 		{
-			auto cache = _field[moveToIndex].OccupiedBy();
-
-			result = _field[selectedIndex].TryMoveTo(&_field[moveToIndex], haveObstacles);
-			taken = result ? cache : chessmans::None;
-		}
-		else
-		{
-			int kingIndex = _field[selectedIndex].OccupiedBy() == chessmans::King ?
-				selectedIndex : moveToIndex;
-			int rookIndex = kingIndex == selectedIndex ? moveToIndex : selectedIndex;
-
-			int direction = (rookIndex % SIZE_X) - (kingIndex % SIZE_X);
-			direction = (direction > 0) - (direction < 0); //normalized direction
-
-			int kingMoveToIndex = kingIndex + 2 * direction;
-			int rookMoveToIndex = kingMoveToIndex - direction;
-
-			_field[kingIndex].MoveTo(&_field[kingMoveToIndex]);
-			_field[rookIndex].MoveTo(&_field[rookMoveToIndex]);
-
-			result = true;
+			_line.Reset();
+			_line.Set(0, &_field[selectedIndex]);
+			_line.Set(1, &_field[moveToIndex]);
 		}
 
-		return result;
-	}
-
-	template<int SIZE_X, int SIZE_Y>
-	bool Field<SIZE_X, SIZE_Y>::IsCastling(Cell* selected, Cell* moveTo, bool haveObstacles)
-	{
-		if (haveObstacles)
-		{
-			return false;
-		}
-
-		if (selected->IsEmpty() || moveTo->IsEmpty()
-			|| selected->IsChessmanDirty() || moveTo->IsChessmanDirty())
-		{
-			return false;
-		}
-
-		switch (selected->OccupiedBy())
-		{
-		case chessmans::King:
-			return moveTo->OccupiedBy() == chessmans::Rook;
-
-		case chessmans::Rook:
-			return moveTo->OccupiedBy() == chessmans::King;
-
-		default:
-			return false;
-		}
+		return Cell::TryMoveTo(_line, directionX, directionY);
 	}
 }
