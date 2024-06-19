@@ -1,4 +1,5 @@
 #pragma once
+#include <type_traits>
 #include <iostream>
 #include <fcntl.h>
 #include <io.h>
@@ -11,8 +12,12 @@ int main()
 {
 	_setmode(_fileno(stdout), _O_U16TEXT);
 
-	auto gameController = new chessControllers::GameController(structs::CircularList<int>({ 1, -1 }));
+	constexpr int teamIndexes[] = { 1, -1 };
+	constexpr size_t indexesAmount = std::extent<decltype(teamIndexes)>::value;
 
+	structs::CircularList<int, indexesAmount> movesOrder(teamIndexes);
+
+	auto gameController = new chessControllers::GameController(&movesOrder);
 	gameController->PrintState();
 
 	bool gameFinished = false;
@@ -25,7 +30,6 @@ int main()
 	} while (!gameFinished);
 
 	delete gameController;
-
 
 	return 0;
 }

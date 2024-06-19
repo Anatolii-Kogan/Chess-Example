@@ -3,13 +3,14 @@
 #include "IFieldFiller.h"
 #include "BehaviorContainer.h"
 #include "MoveInfo.h"
+#include "IIterator.h"
 
 namespace chessControllers
 {
 	class GameController
 	{
 	public:
-		GameController(structs::CircularList<int> movesOrder);
+		GameController(structs::IIterator<int>* movesOrder);
 		~GameController();
 
 		info::MoveInfo MoveNext();

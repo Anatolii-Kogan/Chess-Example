@@ -2,88 +2,78 @@
 #include <cstring>
 #include <initializer_list>
 #include <utility>
+#include "IIterator.h"
 
 namespace structs
 {
-	template<typename T>
+	template<typename T, size_t size>
 	struct CircularList
+		: public IIterator<T>
 	{
-	public:
-		CircularList(std::initializer_list<T> params)
-			:
-			_size(static_cast<int>(params.size())),
-			_index(0)
-		{
-			_list = new T[_size];
+	private:
+		T _list[size];
 
-			int index = 0;
-			for (auto param : params)
+		mutable size_t _index = 0;
+	public:
+		constexpr CircularList(const T(&params)[size])
+		{
+			for (size_t i = 0; i < size; ++i)
 			{
-				_list[index] = param;
-				++index;
+				_list[i] = params[i];
 			}
 		}
 
-		CircularList(const CircularList& copy) : _size(copy._size), _index(copy._index)
+		CircularList( const CircularList& copy ) : _index(copy._index)
 		{
-			_list = new T[_size];
-			std::memcpy(_list, copy._list, _size * sizeof(T));
+			std::copy(copy._list, copy._list + size, _list);
 		}
 
-		CircularList& operator=(const CircularList& other)
+		CircularList& operator=( const CircularList& other )
 		{
 			if (this != &other)
 			{
-				delete[] _list;
-				_size = other._size;
 				_index = other._index;
-				_list = new T[_size];
-				std::memcpy(_list, other._list, _size * sizeof(T));
+				std::copy(other._list, other._list + size, _list);
 			}
 			return *this;
 		}
 
-		~CircularList() { delete[] _list; }
+		~CircularList() = default;
 
-		CircularList( CircularList&& other ) noexcept : _list(nullptr), _size(0), _index(0)
+		CircularList( CircularList&& other ) noexcept : _index(other._index)
 		{
-			*this = std::move(other);
+			std::move(other._list, other._list + size, _list);
+			other._index = 0;
 		}
 
 		CircularList& operator=( CircularList&& other ) noexcept
 		{
 			if (this != &other)
 			{
-				delete[] _list;
-				_list = other._list;
-				_size = other._size;
 				_index = other._index;
-
-				other._list = nullptr;
-				other._size = 0;
+				std::move(other._list, other._list + size, _list);
 				other._index = 0;
 			}
-
 			return *this;
 		}
 
 		const T& GetNext() const
 		{
 			const T& param = _list[_index];
-
-			++_index;
-			if (_index == _size)
-			{
-				_index = 0;
-			}
-
+			_index = (_index + 1) % size;
 			return param;
 		}
 
-	private:
-		int _size;
-		T* _list;
+		bool TryGetNext(T*& ptrNext) const override
+		{
+			ptrNext = const_cast<T*>(&_list[_index]);
+			_index = (_index + 1) % size;
+			return true;
+		}
 
-		mutable int _index;
+		T* GetFirst() const override { return const_cast<T*>(&_list[0]); }
+		T* GetLast() const override { return const_cast<T*>(&_list[size - 1]); }
+
+		void ResetIterator() const override { _index = 0; }
 	};
 }

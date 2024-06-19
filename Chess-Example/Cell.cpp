@@ -24,7 +24,7 @@ namespace cells
 			if (line.GetFirst()->OccupiedBy() == chessmans::King)
 			{
 				int iterations = 2;
-				while (line.TryGetNext(&cellForKing) && iterations != 0)
+				while (line.TryGetNext(cellForKing) && iterations != 0)
 				{
 					cellForRook = cellForKing;
 					--iterations;
@@ -34,7 +34,7 @@ namespace cells
 			{
 				Cell* cell;
 
-				while (line.TryGetNext(&cell))
+				while (line.TryGetNext(cell))
 				{
 					if (cell != line.GetLast())
 					{
@@ -146,7 +146,7 @@ namespace cells
 
 		line.ResetIterator();
 		Cell* cell;
-		while (line.TryGetNext(&cell))
+		while (line.TryGetNext(cell))
 		{
 			if (!cell->IsEmpty()
 				&& cell != firstCell && cell != lastCell

@@ -2,7 +2,7 @@
 #define FIELD_H
 
 #include "Cell.h"
-#include "CircularList.h"
+#include "IIterator.h"
 #include "FieldDrawer.h"
 #include "IFieldFiller.h"
 #include "MoveInfo.h"
@@ -21,7 +21,7 @@ namespace chessControllers
 		: public drawers::IDrawer
 	{
 	private:
-		structs::CircularList<int> _movesOrder;
+		structs::IIterator<int>* _movesOrder;
 		int _currentTeam;
 
 		Cell _field[SIZE_X * SIZE_Y];
@@ -52,12 +52,10 @@ namespace chessControllers
 		bool TryGetLine(int index1, int index2);
 
 	public:
+		explicit constexpr Field(structs::IIterator<int>* movesOrder);
 
-		constexpr Field(structs::CircularList<int> movesOrder);
-
-		void FillField(const fillers::IFieldFiller* filler, structs::CircularList<int> movesOrder)
+		void FillField(const fillers::IFieldFiller* filler)
 		{
-			_movesOrder = movesOrder;
 			for (int i = SIZE_X * SIZE_Y - 1; i >= 0; --i)
 			{
 				(_field + i)->SetChessman(filler->MoveNext());

@@ -11,12 +11,15 @@ namespace chessControllers
 	using namespace std;
 	constexpr int GameController::FIELD_SIZE;
 
-	GameController::GameController(structs::CircularList<int> movesOrder) : _field(Field<FIELD_SIZE, FIELD_SIZE>(movesOrder))
+	GameController::GameController(structs::IIterator<int>* movesOrder) : _field(Field<FIELD_SIZE, FIELD_SIZE>(movesOrder))
 	{
 		_behaviors = new BehaviorContainer();
-		_filler = new fillers::ClassicFieldFiller(_behaviors, FIELD_SIZE, movesOrder);
 
-		_field.FillField(_filler, movesOrder);
+		int teamIndex_1 = *(movesOrder->GetFirst());
+		int teamIndex_2 = *(movesOrder->GetLast());
+		_filler = new fillers::ClassicFieldFiller(_behaviors, FIELD_SIZE, teamIndex_1, teamIndex_2);
+
+		_field.FillField(_filler);
 	}
 
 	GameController::~GameController()

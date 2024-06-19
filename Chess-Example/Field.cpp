@@ -13,21 +13,15 @@ using namespace cells;
 namespace chessControllers
 {
 	template<int SIZE_X, int SIZE_Y>
-	constexpr Field<SIZE_X, SIZE_Y>::Field(structs::CircularList<int> movesOrder) : _movesOrder(movesOrder)
+	constexpr Field<SIZE_X, SIZE_Y>::Field(structs::IIterator<int>* movesOrder) : _movesOrder(movesOrder)
 	{
 		if (SIZE_X <= 0 || SIZE_Y <= 0) {
 			throw std::invalid_argument("Field size have to be >0");
 		}
 
-		/*for (int row = 0; row < SIZE_Y; ++row)
-		{
-			for (int column = 0; column < SIZE_X; ++column)
-			{
-				_field[row * SIZE_X + column] = cells::Cell(column, row);
-			}
-		}*/
-
-		_currentTeam = _movesOrder.GetNext();
+		int* value;
+		_movesOrder->TryGetNext(value);
+		_currentTeam = *value;
 	}
 
 	template<int SIZE_X, int SIZE_Y>
@@ -75,7 +69,9 @@ namespace chessControllers
 		bool result = ReleaseSelection(moveInfo.SelectedIndex, moveInfo.MoveToIndex, moveInfo.Taken);
 		if (result == true)
 		{
-			_currentTeam = _movesOrder.GetNext();
+			int* value;
+			_movesOrder->TryGetNext(value);
+			_currentTeam = *value;
 		}
 
 		return result;

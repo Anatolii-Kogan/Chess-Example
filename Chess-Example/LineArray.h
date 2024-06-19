@@ -1,5 +1,6 @@
 #pragma once
 #include <stdexcept>
+#include <cstddef>
 #include "IIterator.h"
 
 namespace structs
@@ -8,75 +9,71 @@ namespace structs
 	struct LineArray 
 		: public IIterator<T>
 	{
-	private:
-		T* _data[max_size];
+    private:
+        T* _data[max_size];
 
-		T** _begin;
-		T** _end;
-		mutable T** _current;
+        mutable size_t _currentIndex;
+        size_t _size;
 
-	public:
-		void Set(int index, T* value)
-		{
-			if (index >= max_size)
-			{
-				throw std::out_of_range("Index out of range");
-			}
+    public:
+        LineArray() : _currentIndex(0), _size(0)
+        {
+            std::fill_n(_data, max_size, nullptr);
+        }
 
-			_data[index] = value;
-			T** ptr = &_data[index];
+        void Set(int index, T* value)
+        {
+            if (index >= max_size)
+            {
+                throw std::out_of_range("Index out of range");
+            }
 
-			if (ptr > _end || _end == nullptr)
-			{
-				_end = ptr;
-			}
-			if (ptr < _begin || _begin == nullptr)
-			{
-				_begin = ptr;
+            _data[index] = value;
 
-				if (_current < _begin)
-				{
-					_current = _begin;
-				}
-			}
-		}
+            if (index >= _size)
+            {
+                _size = index + 1;
+            }
+        }
 
-		T* GetFirst() const override { return *_begin; }
-		T* GetLast() const override { return *_end; }
+        T* GetFirst() const override
+        {
+            if (_size == 0)
+            {
+                throw std::out_of_range("Array is empty");
+            }
+            return _data[0];
+        }
 
-		void Reset()
-		{
-			if (IsEmpty())
-			{
-				return;
-			}
+        T* GetLast() const override
+        {
+            if (_size == 0)
+            {
+                throw std::out_of_range("Array is empty");
+            }
+            return _data[_size - 1];
+        }
 
-			for (size_t i = 0; i < max_size; i++)
-			{
-				_data[i] = nullptr;
-			}
+        void Reset()
+        {
+            std::fill_n(_data, max_size, nullptr);
+            ResetIterator();
+            _size = 0;
+        }
 
-			_begin = nullptr;
-			_end = nullptr;
-			ResetIterator();
-		}
+        bool TryGetNext(T*& next) const override
+        {
+            if (_currentIndex >= _size)
+            {
+                return false;
+            }
 
-		bool TryGetNext(T** ptrNext) const override
-		{
-			if (IsEmpty() || _current > _end)
-			{
-				return false;
-			}
+            next = _data[_currentIndex++];
+            return true;
+        }
 
-			*ptrNext = *_current;
-			++_current;
+        void ResetIterator() const override { _currentIndex = 0; }
 
-			return true;
-		}
-
-		void ResetIterator() const override { _current = _begin; }
-
-
-		bool IsEmpty() const { return _begin == nullptr || _end == nullptr; }
+        bool IsEmpty() const{ return _size == 0; }
 	};
 }

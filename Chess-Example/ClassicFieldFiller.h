@@ -7,8 +7,8 @@ namespace fillers
 	class ClassicFieldFiller : public IFieldFiller
 	{
 	public:
-		ClassicFieldFiller(const BehaviorContainer* behaviors, int fieldSize, const structs::CircularList<int> movesOrder)
-			: IFieldFiller::IFieldFiller(behaviors), SIZE(fieldSize), TEAM_1(movesOrder.GetNext()), TEAM_2(movesOrder.GetNext())
+		ClassicFieldFiller(const BehaviorContainer* behaviors, int fieldSize, int teamIndex_1, int teamIndex_2)
+			: IFieldFiller::IFieldFiller(behaviors), SIZE(fieldSize), TEAM_1(teamIndex_1), TEAM_2(teamIndex_2)
 		{
 			CalculateChessmansAmount();
 		}
