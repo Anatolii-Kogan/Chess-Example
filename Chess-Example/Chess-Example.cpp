@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fcntl.h>
 #include <io.h>
-#include "GameController.h"
+#include "ChessGameController.h"
 #include "CircularList.h"
 
 using namespace std;
@@ -17,7 +17,7 @@ int main()
 
 	structs::CircularList<int, rulesAmount> movesOrder(teamMovesOrder);
 
-	auto gameController = new chessControllers::GameController(&movesOrder);
+	auto gameController = new chessControllers::ChessGameController(&movesOrder);
 	gameController->PrintState();
 
 	bool gameFinished = false;

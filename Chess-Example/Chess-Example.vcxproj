@@ -154,7 +154,7 @@
     <ClInclude Include="CircularList.h" />
     <ClInclude Include="ClassicFieldFiller.h" />
     <ClInclude Include="Field.h" />
-    <ClInclude Include="GameController.h" />
+    <ClInclude Include="ChessGameController.h" />
     <ClInclude Include="FieldDrawer.h" />
     <ClInclude Include="IIterator.h" />
     <ClInclude Include="LineArray.h" />

@@ -101,7 +101,7 @@
     <ClInclude Include="Field.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameController.h">
+    <ClInclude Include="ChessGameController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">

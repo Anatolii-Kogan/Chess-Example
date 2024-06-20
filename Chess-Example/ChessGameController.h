@@ -7,10 +7,10 @@
 
 namespace chessControllers
 {
-	class GameController
+	class ChessGameController
 	{
 	public:
-		GameController(structs::IIterator<int>* movesOrder) : _field(Field<FIELD_SIZE, FIELD_SIZE>(movesOrder))
+		ChessGameController(structs::IIterator<int>* movesOrder) : _field(Field<FIELD_SIZE, FIELD_SIZE>(movesOrder))
 		{
 			_behaviors = new BehaviorContainer();
 
@@ -21,7 +21,7 @@ namespace chessControllers
 			_field.FillField(&filler);
 		}
 
-		~GameController() { delete _behaviors; }
+		~ChessGameController() { delete _behaviors; }
 
 		info::MoveInfo MoveNext()
 		{
