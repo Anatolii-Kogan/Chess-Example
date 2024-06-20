@@ -71,8 +71,8 @@ namespace structs
 			return true;
 		}
 
-		T* GetFirst() const override { return const_cast<T*>(&_list[0]); }
-		T* GetLast() const override { return const_cast<T*>(&_list[size - 1]); }
+		T* GetFirst() const override { return const_cast<T*>(&_list[_index]); }
+		T* GetLast() const override { return const_cast<T*>(&_list[(size - 1 + _index) % size]); }
 
 		void ResetIterator() const override { _index = 0; }
 	};
