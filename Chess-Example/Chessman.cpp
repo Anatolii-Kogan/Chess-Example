@@ -2,25 +2,6 @@
 
 namespace chessmans
 {
-	Chessman::Chessman(int teamIndex, int forwardX, int forwardY)
-		:
-		_teamIndex(teamIndex),
-		_isDirty(false),
-		_forwardX(forwardX),
-		_forwardY(forwardY),
-		_behavior(nullptr)
-	{}
-
-	Chessman::Chessman(int teamIndex, int forwardX, int forwardY, IChessmanBehavior* behavior)
-		: Chessman::Chessman(teamIndex, forwardX, forwardY)
-	{
-		SetBehavior(behavior);
-	}
-
-	void Chessman::SetBehavior(IChessmanBehavior* behavior)
-	{
-		_behavior = behavior;
-	}
 
 	bool Chessman::ValidateMove(int directionX, int directionY) const
 	{

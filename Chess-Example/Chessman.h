@@ -7,17 +7,24 @@ namespace chessmans
 	class Chessman
 	{
 	private:
-		bool _isDirty;
+		bool _isDirty{ false };
 		int _teamIndex;
 
 		int _forwardX;
 		int _forwardY;
 
-		IChessmanBehavior* _behavior;
+		IChessmanBehavior* _behavior{ nullptr };
 
 	public:
-		Chessman(int teamIndex, int attackDirX, int attackDirY);
-		Chessman(int teamIndex, int attackDirX, int attackDirY, IChessmanBehavior* behavior);
+		Chessman(int teamIndex, int attackDirX, int attackDirY) :
+			_teamIndex(teamIndex), _forwardX(attackDirX), _forwardY(attackDirY) 
+		{}
+
+		Chessman(int teamIndex, int attackDirX, int attackDirY, IChessmanBehavior* behavior) 
+			: Chessman::Chessman(teamIndex, attackDirX, attackDirY)
+		{
+			SetBehavior(behavior);
+		}
 
 		void MarkAsDirty()
 		{
@@ -31,7 +38,7 @@ namespace chessmans
 		bool IsFriendly(const Chessman* cellOccupant) const { return _teamIndex == (*cellOccupant)._teamIndex; }
 		bool CanIgnoreObstacles() const { return _behavior->CanIgnoreObstacles(); }
 
-		void SetBehavior(IChessmanBehavior* behavior);
+		void SetBehavior(IChessmanBehavior* behavior) { _behavior = behavior; }
 
 		bool ValidateMove(int directionX, int directionY) const;
 		bool ValidateAttack(int directionX, int directionY, const Chessman* competitiveChessman) const;
