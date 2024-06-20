@@ -15,13 +15,17 @@ namespace cells
 			return false;
 		}
 
-		if (directionY == 0 && Cell::IsCastling(line.GetFirst(), line.GetLast()))
+		line.ResetIterator();
+		auto selectedCell = line.GetFirst();
+		auto moveToCell = line.GetLast();
+
+		if (directionY == 0 && Cell::IsCastling(selectedCell, moveToCell))
 		{
 			Cell* cellForKing = nullptr;
 			Cell* cellForRook = nullptr;
 
 			line.ResetIterator();
-			if (line.GetFirst()->OccupiedBy() == chessmans::King)
+			if (selectedCell->OccupiedBy() == chessmans::King)
 			{
 				int iterations = 2;
 				while (line.TryGetNext(cellForKing) && iterations != 0)
@@ -30,13 +34,13 @@ namespace cells
 					--iterations;
 				}
 			}
-			else if (line.GetFirst()->OccupiedBy() == chessmans::Rook)
+			else if (selectedCell->OccupiedBy() == chessmans::Rook)
 			{
 				Cell* cell;
 
 				while (line.TryGetNext(cell))
 				{
-					if (cell != line.GetLast())
+					if (cell != moveToCell)
 					{
 						cellForKing = cellForRook;
 						cellForRook = cell;
@@ -44,13 +48,13 @@ namespace cells
 				}
 			}
 
-			line.GetFirst()->MoveTo(cellForKing);
-			line.GetLast()->MoveTo(cellForRook);
+			selectedCell->MoveTo(cellForKing);
+			moveToCell->MoveTo(cellForRook);
 
 			return true;
 		}
 
-		return line.GetFirst()->TryMoveTo(line.GetLast(), directionX, directionY);
+		return selectedCell->TryMoveTo(moveToCell, directionX, directionY);
 	}
 
 	bool Cell::TryMoveTo(Cell* moveTo, int directionX, int directionY)

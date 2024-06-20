@@ -25,9 +25,6 @@ namespace cells
 		/// </summary>
 		/// <param name="moveToCell">: try move chessman from this cell to moveToCell cell</param>
 		/// <returns>true - move was success; false - can't move like that</returns>
-		bool TryMoveTo(Cell* moveTo, int directionX, int directionY);
-
-
 		static bool TryMoveTo(const structs::IIterator<Cell>& line, int directionX, int directionY);
 
 		/// <summary>
@@ -41,13 +38,15 @@ namespace cells
 
 		void Draw() const override;
 
-		bool IsEmpty() const { return _chessman == nullptr; }
-		chessmans::ChessmanType OccupiedBy() { return !IsEmpty() ? _chessman->GetType() : chessmans::None; }
 		int OccupiedByTeam() { return _chessman->GetTeamIndex(); }
-		bool IsChessmanDirty() { return _chessman->IsDirty(); }
-
-		static bool IsCastling(Cell* selected, Cell* moveTo);
+		bool IsEmpty() const { return _chessman == nullptr; }
 	private:
 		chessmans::Chessman* _chessman;
+
+		bool TryMoveTo(Cell* moveTo, int directionX, int directionY);
+		static bool IsCastling(Cell* selected, Cell* moveTo);
+
+		bool IsChessmanDirty() { return _chessman->IsDirty(); }
+		chessmans::ChessmanType OccupiedBy() { return !IsEmpty() ? _chessman->GetType() : chessmans::None; }
 	};
 }
