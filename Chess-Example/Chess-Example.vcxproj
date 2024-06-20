@@ -136,7 +136,6 @@
     <ClCompile Include="ChessmanFactory.cpp" />
     <ClCompile Include="ClassicFieldFiller.cpp" />
     <ClCompile Include="Field.cpp" />
-    <ClCompile Include="GameController.cpp" />
     <ClCompile Include="IFieldFiller.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="KingBehavior.cpp" />

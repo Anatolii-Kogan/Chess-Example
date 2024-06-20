@@ -48,9 +48,6 @@
     <ClCompile Include="Field.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
