@@ -3,12 +3,12 @@ namespace chessmans
 {
 	enum ChessmanType
 	{
-		None = -1,
+		None = 0,
 		Pawn = 1,
 		Knight = 2,
 		Bishop = 3,
 		Rook = 4,
 		Queen = 8,
-		King = 0
+		King = 34 //all chessmans's costs sum
 	};
 }
