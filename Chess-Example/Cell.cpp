@@ -9,26 +9,6 @@ using namespace chessmans;
 
 namespace cells
 {
-	bool Cell::TryMoveTo(const structs::IIterator<Cell>& line, int directionX, int directionY)
-	{
-		if (!Cell::CanIgnoreObstacles(line))
-		{
-			return false;
-		}
-
-		line.ResetIterator();
-		auto selectedCell = line.GetFirst();
-		auto moveToCell = line.GetLast();
-
-		if (chessControllers::ChessGameController::IsCastling(selectedCell->_chessman, moveToCell->_chessman))
-		{
-			chessControllers::ChessGameController::MakeCastling(line);
-			return true;
-		}
-
-		return selectedCell->TryMoveTo(moveToCell, directionX, directionY);
-	}
-
 	bool Cell::TryMoveTo(Cell* moveTo, int directionX, int directionY)
 	{
 		bool result = false;
@@ -92,25 +72,5 @@ namespace cells
 		{
 			std::wcout << "   ";
 		}
-	}
-
-	bool Cell::CanIgnoreObstacles(const structs::IIterator<Cell>& line)
-	{
-		line.ResetIterator();
-		Cell* firstCell = line.GetFirst();
-		Cell* lastCell = line.GetLast();
-
-		Cell* cell;
-		while (line.TryGetNext(cell))
-		{
-			if (!cell->IsEmpty()
-				&& cell != firstCell && cell != lastCell
-				&& !firstCell->_chessman->CanIgnoreObstacles())
-			{
-				return false;
-			}
-		}
-
-		return true;
 	}
 }
