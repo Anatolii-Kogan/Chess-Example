@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Chessman.h"
 #include "IIterator.h"
+#include "ChessGameController.h"
 
 using namespace chessmans;
 
@@ -19,38 +20,9 @@ namespace cells
 		auto selectedCell = line.GetFirst();
 		auto moveToCell = line.GetLast();
 
-		if (directionY == 0 && Cell::IsCastling(selectedCell, moveToCell))
+		if (chessControllers::ChessGameController::IsCastling(selectedCell->_chessman, moveToCell->_chessman))
 		{
-			Cell* cellForKing = nullptr;
-			Cell* cellForRook = nullptr;
-
-			line.ResetIterator();
-			if (selectedCell->OccupiedBy() == chessmans::King)
-			{
-				int iterations = 2;
-				while (line.TryGetNext(cellForKing) && iterations != 0)
-				{
-					cellForRook = cellForKing;
-					--iterations;
-				}
-			}
-			else if (selectedCell->OccupiedBy() == chessmans::Rook)
-			{
-				Cell* cell;
-
-				while (line.TryGetNext(cell))
-				{
-					if (cell != moveToCell)
-					{
-						cellForKing = cellForRook;
-						cellForRook = cell;
-					}
-				}
-			}
-
-			selectedCell->MoveTo(cellForKing);
-			moveToCell->MoveTo(cellForRook);
-
+			chessControllers::ChessGameController::MakeCastling(line);
 			return true;
 		}
 
@@ -122,33 +94,12 @@ namespace cells
 		}
 	}
 
-	bool Cell::IsCastling(Cell* selected, Cell* moveTo)
-	{
-		if (selected->IsEmpty() || moveTo->IsEmpty()
-			|| selected->IsChessmanDirty() || moveTo->IsChessmanDirty())
-		{
-			return false;
-		}
-
-		switch (selected->OccupiedBy())
-		{
-		case chessmans::King:
-			return moveTo->OccupiedBy() == chessmans::Rook;
-
-		case chessmans::Rook:
-			return moveTo->OccupiedBy() == chessmans::King;
-
-		default:
-			return false;
-		}
-	}
-
 	bool Cell::CanIgnoreObstacles(const structs::IIterator<Cell>& line)
 	{
+		line.ResetIterator();
 		Cell* firstCell = line.GetFirst();
 		Cell* lastCell = line.GetLast();
 
-		line.ResetIterator();
 		Cell* cell;
 		while (line.TryGetNext(cell))
 		{

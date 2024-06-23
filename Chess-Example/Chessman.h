@@ -43,10 +43,10 @@ namespace chessmans
 		bool ValidateMove(int directionX, int directionY) const;
 		bool ValidateAttack(int directionX, int directionY, const Chessman* competitiveChessman) const;
 
-		ChessmanType GetType() { return _behavior->GetType(); }
-		int GetCost() { return _behavior->GetType(); }
+		int GetType() const { return _behavior->GetType(); }
+		int GetCost() const { return _behavior->GetType(); }
 
-		int GetTeamIndex() { return _teamIndex; }
+		int GetTeamIndex() const { return _teamIndex; }
 		wchar_t GetDraw() { return ChassmansCharacters::GetCharacter(_behavior->GetType(), _teamIndex); }
 	};
 }

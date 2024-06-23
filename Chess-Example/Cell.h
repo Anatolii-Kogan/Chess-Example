@@ -9,7 +9,6 @@ namespace cells
 		: public drawers::IDrawer
 	{
 	public:
-		Cell() = default;
 		~Cell()
 		{
 			if (_chessman != nullptr)
@@ -38,15 +37,14 @@ namespace cells
 
 		void Draw() const override;
 
-		int OccupiedByTeam() { return _chessman->GetTeamIndex(); }
+		int OccupiedByTeam() const { return _chessman->GetTeamIndex(); }
+		int OccupiedBy() const { return !IsEmpty() ? _chessman->GetType() : 0; }
 		bool IsEmpty() const { return _chessman == nullptr; }
 	private:
 		chessmans::Chessman* _chessman;
 
 		bool TryMoveTo(Cell* moveTo, int directionX, int directionY);
-		static bool IsCastling(Cell* selected, Cell* moveTo);
 
-		bool IsChessmanDirty() { return _chessman->IsDirty(); }
-		chessmans::ChessmanType OccupiedBy() { return !IsEmpty() ? _chessman->GetType() : chessmans::None; }
+		bool IsChessmanDirty() const { return _chessman->IsDirty(); }
 	};
 }
