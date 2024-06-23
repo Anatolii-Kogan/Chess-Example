@@ -2,11 +2,8 @@
 #define FIELD_H
 
 #include "Cell.h"
-#include "IIterator.h"
 #include "FieldDrawer.h"
 #include "IFieldFiller.h"
-#include "MoveInfo.h"
-#include "LineArray.h"
 
 #ifdef DEBUG
 #include <stdexcept>
@@ -20,51 +17,28 @@ namespace chessControllers
 	class Field 
 		: public drawers::IDrawer
 	{
-	private:
-		structs::IIterator<int>* _movesOrder;
-		int _currentTeam;
-
-		Cell _field[SIZE_X * SIZE_Y];
-		structs::LineArray<Cell, SIZE_X> _line;
-
-		int GetRowByIndex(int index) { return index / SIZE_X; }
-		int GetColumnByIndex(int index) { return index % SIZE_X; }
-
-		int GetIndex(int row, int column) 
-		{ 
-#ifdef DEBUG
-			if (row > SIZE_Y - 1)
-			{
-				throw std::out_of_range("Row out of range");
+	public:
+		explicit constexpr Field()
+		{
+			if (SIZE_X <= 0 || SIZE_Y <= 0) {
+				throw std::invalid_argument("Field size have to be >0");
 			}
-			if (column > SIZE_X - 1)
-			{
-				throw std::out_of_range("Column out of range");
-			}
-#endif
-			return row * SIZE_X + column; 
+
+			int* value;
+			_movesOrder->TryGetNext(value);
+			_currentTeam = *value;
 		}
 
-		void SelectCells(info::MoveInfo& moveInfo);
-		bool ReleaseSelection(int selectedIndex, int moveToIndex, chessmans::ChessmanType& taken);
-
-		bool TrySelectCell(const int index, info::MoveInfo& moveInfo);
-		bool TryGetLine(int index1, int index2);
-
-	public:
-		explicit constexpr Field(structs::IIterator<int>* movesOrder);
-
-		void FillField(const fillers::IFieldFiller* filler)
+		void FillField(const fillers::IFieldFiller* iFiller)
 		{
+			auto filler = *iFiller;
 			for (int i = SIZE_X * SIZE_Y - 1; i >= 0; --i)
 			{
-				(_field + i)->SetChessman(filler->MoveNext());
+				(_field + i)->SetChessman(filler.MoveNext());
 			}
 		}
 
-		/// <returns>was move success</returns>
-		bool Execute(info::MoveInfo& moveInfo);
-		bool ExecutePredetermined(info::MoveInfo& moveInfo);
+		Cell& GetCell(int row, int column) { return _field[ GetIndex(row, column) ]; }
 
 		void Draw() const override 
 		{ 
@@ -78,9 +52,25 @@ namespace chessControllers
 
 			drawers::FieldDrawer::DrawFieldBasement<SIZE_X>();
 		}
+
+	private:
+		Cell _field[SIZE_X * SIZE_Y];
+
+		int GetIndex(int row, int column)
+		{
+#ifdef DEBUG
+			if (row > SIZE_Y - 1)
+			{
+				throw std::out_of_range("Row out of range");
+			}
+			if (column > SIZE_X - 1)
+			{
+				throw std::out_of_range("Column out of range");
+			}
+#endif
+			return row * SIZE_X + column;
+		}
 	};
 }
-
-#include "Field.cpp"
 
 #endif // !FIELD_H
