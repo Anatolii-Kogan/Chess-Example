@@ -23,10 +23,6 @@ namespace chessControllers
 			if (SIZE_X <= 0 || SIZE_Y <= 0) {
 				throw std::invalid_argument("Field size have to be >0");
 			}
-
-			int* value;
-			_movesOrder->TryGetNext(value);
-			_currentTeam = *value;
 		}
 
 		void FillField(const fillers::IFieldFiller* iFiller)
