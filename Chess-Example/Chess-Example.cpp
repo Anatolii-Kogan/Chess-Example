@@ -20,7 +20,7 @@ int main()
 	auto gameController = new chessControllers::ChessGameController(&movesOrder);
 	gameController->PrintState();
 
-	while (!gameController->IsGameFinished());
+	while (gameController->IsGameFinished());
 	{
 		gameController->MoveNext();
 		gameController->PrintState();
