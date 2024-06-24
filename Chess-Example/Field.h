@@ -25,12 +25,11 @@ namespace chessControllers
 			}
 		}
 
-		void FillField(const fillers::IFieldFiller* iFiller)
+		void FillField(const fillers::IFieldFiller* filler)
 		{
-			auto filler = *iFiller;
 			for (int i = SIZE_X * SIZE_Y - 1; i >= 0; --i)
 			{
-				(_field + i)->SetChessman(filler.MoveNext());
+				(_field + i)->SetChessman(filler->MoveNext());
 			}
 		}
 

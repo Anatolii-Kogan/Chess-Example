@@ -2,8 +2,6 @@
 #include "Cell.h"
 #include <iostream>
 #include "Chessman.h"
-#include "IIterator.h"
-#include "ChessGameController.h"
 
 using namespace chessmans;
 

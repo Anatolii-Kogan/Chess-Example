@@ -20,14 +20,11 @@ int main()
 	auto gameController = new chessControllers::ChessGameController(&movesOrder);
 	gameController->PrintState();
 
-	bool gameFinished = false;
-	do
+	while (!gameController->IsGameFinished());
 	{
-		auto result = gameController->MoveNext();
+		gameController->MoveNext();
 		gameController->PrintState();
-
-		gameFinished = result.Taken == chessmans::King;
-	} while (!gameFinished);
+	}
 
 	delete gameController;
 

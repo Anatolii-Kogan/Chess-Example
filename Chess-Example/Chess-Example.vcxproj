@@ -135,9 +135,7 @@
     <ClCompile Include="ChessmanBehavior.cpp" />
     <ClCompile Include="ChessmanFactory.cpp" />
     <ClCompile Include="ClassicFieldFiller.cpp" />
-    <ClCompile Include="Field.cpp" />
     <ClCompile Include="IFieldFiller.cpp" />
-    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="KingBehavior.cpp" />
     <ClCompile Include="KnightBehavior.cpp" />
     <ClCompile Include="PawnBehavior.cpp" />
@@ -164,7 +162,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KingBehavior.h" />
     <ClInclude Include="KnightBehavior.h" />
-    <ClInclude Include="MoveInfo.h" />
+    <ClInclude Include="SelectInfo.h" />
     <ClInclude Include="PawnBehavior.h" />
     <ClInclude Include="QueenBehavior.h" />
     <ClInclude Include="RookBehavior.h" />

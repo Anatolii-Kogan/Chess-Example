@@ -1,7 +1,6 @@
 #pragma once
 #include "Chessman.h"
 #include "IDrawer.h"
-#include "IIterator.h"
 
 namespace cells
 {
