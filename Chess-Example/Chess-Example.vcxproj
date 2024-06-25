@@ -129,7 +129,6 @@
   <ItemGroup>
     <ClCompile Include="BehaviorContainer.cpp" />
     <ClCompile Include="BishopBehavior.cpp" />
-    <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Chess-Example.cpp" />
     <ClCompile Include="Chessman.cpp" />
     <ClCompile Include="ChessmanBehavior.cpp" />

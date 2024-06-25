@@ -42,9 +42,6 @@
     <ClCompile Include="Chess-Example.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Cell.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BehaviorContainer.cpp">
       <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>

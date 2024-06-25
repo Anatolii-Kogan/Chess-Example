@@ -33,65 +33,12 @@ namespace chessControllers
 
 		void MoveNext()
 		{
-			//info::MoveInfo moveInfo;
 			bool result = Execute();
 			if (result == false)
 			{
 				wcout << "You can't move like that. Try again." << endl;
 				MoveNext();
 			}
-		}
-
-		static bool IsCastling(const chessmans::Chessman* chessman1, const chessmans::Chessman* chessman2)
-		{
-			if (chessman1->IsDirty() || chessman2->IsDirty())
-			{
-				return false;
-			}
-
-			switch (chessman1->GetType())
-			{
-			case chessmans::King:
-				return chessman2->GetType() == chessmans::Rook;
-
-			case chessmans::Rook:
-				return chessman1->GetType() == chessmans::King;
-
-			default:
-				return false;
-			}
-		}
-
-		void MakeCastling()
-		{
-			Cell* kingCell;
-			Cell* rookCell;
-
-			int kingMoveDirection;
-			switch (_selectFirst.cell->OccupiedBy())
-			{
-			case chessmans::King:
-				kingMoveDirection = _selectSecond.column - _selectFirst.column;
-
-				kingCell = _selectFirst.cell;
-				rookCell = _selectSecond.cell;
-				break;
-
-			case chessmans::Rook:
-				kingMoveDirection = _selectFirst.column - _selectSecond.column;
-
-				kingCell = _selectSecond.cell;
-				rookCell = _selectFirst.cell;
-				break;
-
-			default:
-				throw std::logic_error("Call this method only after IsCastling validation");
-			}
-
-			kingMoveDirection = kingMoveDirection > 0 ? 1 : -1;
-
-			kingCell->MoveTo(&_field.GetCell(_selectFirst.row, _selectFirst.column + 2 * kingMoveDirection));
-			rookCell->MoveTo(&_field.GetCell(_selectFirst.row, _selectFirst.column + kingMoveDirection));
 		}
 
 		bool IsGameFinished() { return _isGameFinished; }
@@ -159,7 +106,43 @@ namespace chessControllers
 			return true;
 		}
 
-		bool ReleaseSelection()
+		bool Execute()
+		{
+			SelectCells();
+			auto* movable = _selectFirst.cell->GetChessman();
+			auto* validated = _selectSecond.cell->GetChessman();
+
+			bool result = false;
+			if (IsCastling(movable, validated))
+			{
+				MakeCastling(_selectFirst, _selectSecond, _field);
+				result = true;
+			}
+			else
+			{
+				bool tryAttackKing = validated != nullptr && validated->GetType() == chessmans::King;
+				if (ValidateMovement(movable, validated))
+				{
+					Cell::ReplaceChessman(_selectFirst.cell, _selectSecond.cell);
+					_isGameFinished = tryAttackKing;
+					result = true;
+				}
+			}
+
+			if (result == true)
+			{
+				int* value;
+				_movesOrder->TryGetNext(value);
+				_currentTeam = *value;
+			}
+
+			_selectFirst.Reset();
+			_selectSecond.Reset();
+
+			return result;
+		}
+
+		bool ValidateMovement(const chessmans::Chessman* movable, const chessmans::Chessman* validated)
 		{
 			int directionX = _selectSecond.column - _selectFirst.column;
 			int directionY = _selectSecond.row - _selectFirst.row;
@@ -186,34 +169,68 @@ namespace chessControllers
 				}
 			}
 
-			if (IsCastling(_selectFirst.cell->GetChessman(), _selectSecond.cell->GetChessman()))
+			if (validated == nullptr)
 			{
-				MakeCastling();
-				return true;
+				return movable->ValidateMove(directionX, directionY);
 			}
-
-			auto chessmanUnderAttack = _selectSecond.cell->GetChessman();
-			bool tryAttackKing = chessmanUnderAttack != nullptr && chessmanUnderAttack->GetType() == chessmans::King;
-			bool result = _selectFirst.cell->TryMoveTo(_selectSecond.cell, directionX, directionY);
-			_isGameFinished = tryAttackKing && result;
-			return result;
+			else
+			{
+				return movable->ValidateAttack(directionX, directionY, validated);
+			}
 		}
 
-		bool Execute()
+		static bool IsCastling(const chessmans::Chessman* chessman1, const chessmans::Chessman* chessman2)
 		{
-			SelectCells();
-			bool result = ReleaseSelection();
-			if (result == true)
+			if (chessman1 == nullptr || chessman2 == nullptr ||
+				chessman1->IsDirty() || chessman2->IsDirty())
 			{
-				int* value;
-				_movesOrder->TryGetNext(value);
-				_currentTeam = *value;
+				return false;
 			}
 
-			_selectFirst.Reset();
-			_selectSecond.Reset();
+			switch (chessman1->GetType())
+			{
+			case chessmans::King:
+				return chessman2->GetType() == chessmans::Rook;
 
-			return result;
+			case chessmans::Rook:
+				return chessman1->GetType() == chessmans::King;
+
+			default:
+				return false;
+			}
+		}
+
+		template<int FIELD_SIZE_X, int FIELD_SIZE_Y>
+		static void MakeCastling(info::SelectInfo selectFirst, info::SelectInfo selectSecond, Field<FIELD_SIZE_X, FIELD_SIZE_Y>& field)
+		{
+			Cell* kingCell;
+			Cell* rookCell;
+
+			int kingMoveDirection;
+			switch (selectFirst.cell->OccupiedBy())
+			{
+			case chessmans::King:
+				kingMoveDirection = selectSecond.column - selectFirst.column;
+
+				kingCell = selectFirst.cell;
+				rookCell = selectSecond.cell;
+				break;
+
+			case chessmans::Rook:
+				kingMoveDirection = selectFirst.column - selectSecond.column;
+
+				kingCell = selectSecond.cell;
+				rookCell = selectFirst.cell;
+				break;
+
+			default:
+				throw std::logic_error("Call this method only after IsCastling validation");
+			}
+
+			kingMoveDirection = kingMoveDirection > 0 ? 1 : -1;
+
+			Cell::ReplaceChessman(kingCell, &field.GetCell(selectFirst.row, selectFirst.column + 2 * kingMoveDirection));
+			Cell::ReplaceChessman(rookCell, &field.GetCell(selectFirst.row, selectFirst.column + kingMoveDirection));
 		}
 
 		bool ReadyToMove() { return _selectFirst.cell != nullptr && _selectSecond.cell != nullptr; }
