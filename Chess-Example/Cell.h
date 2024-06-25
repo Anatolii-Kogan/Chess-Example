@@ -1,5 +1,6 @@
 #pragma once
 #include "Chessman.h"
+#include <iostream>
 #include "IDrawer.h"
 
 namespace cells
@@ -10,33 +11,49 @@ namespace cells
 	private:
 		chessmans::Chessman* _chessman = nullptr;
 	public:
-		~Cell()
+		~Cell() { DeleteChessman(); }
+
+		const auto* GetChessman() { return _chessman; }
+		void SetChessman(chessmans::Chessman* chessman)
+		{
+			if (_chessman != nullptr)
+			{
+				throw std::logic_error("You can't use this method to reassign chessman. Clean this Cell first!");
+			}
+
+			_chessman = chessman;
+		}
+
+		/// <returns>if there is chessman on that cell, return ptr on it; if not - return nullprt</returns>
+		auto* RemoveChessman() 
+		{  
+			auto* chessman = _chessman;
+			_chessman = nullptr;
+			return chessman;
+		}
+
+		static void ReplaceChessman(Cell* moveFrom, Cell* moveTo) { moveTo->SetChessman(moveFrom->RemoveChessman()); }
+
+		void DeleteChessman()
 		{
 			if (_chessman != nullptr)
 			{
 				delete _chessman;
+				_chessman = nullptr;
 			}
 		}
 
-		/// <summary>
-		/// Try move chessman with chessman's move abilities validation
-		/// </summary>
-		/// <param name="moveToCell">: try move chessman from this cell to moveToCell cell</param>
-		/// <returns>true - move was success; false - can't move like that</returns>
-		bool TryMoveTo(Cell* moveTo, int directionX, int directionY);
-
-		/// <summary>
-		/// Move chessman without chessman's move abilities validation
-		/// </summary>
-		/// <param name="cell">move chessman from this cell to cell</param>
-		void MoveTo(Cell* cell);
-
-		void SetChessman(chessmans::Chessman* chessman);
-		const chessmans::Chessman* GetChessman() { return _chessman; }
-
-		void Clean();
-
-		void Draw() const override;
+		void Draw() const override
+		{
+			if (_chessman != nullptr)
+			{
+				std::wcout << ' ' << _chessman->GetDraw() << ' ';
+			}
+			else
+			{
+				std::wcout << "   ";
+			}
+		}
 
 		int OccupiedByTeam() const { return _chessman->GetTeamIndex(); }
 		int OccupiedBy() const { return !IsEmpty() ? _chessman->GetType() : 0; }
