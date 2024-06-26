@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "ChessmanType.h"
+#include "../ChessmanType.h"
 
 namespace chessmans
 {

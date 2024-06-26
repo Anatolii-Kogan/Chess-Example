@@ -1,6 +1,6 @@
 #pragma once
 #include "ChassmansCharacters.h"
-#include "IChessmanBehavior.h"
+#include "../Chess-Example/Behaviors/IChessmanBehavior.h"
 
 namespace chessmans
 {

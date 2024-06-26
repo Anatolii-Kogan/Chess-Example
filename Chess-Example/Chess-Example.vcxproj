@@ -127,23 +127,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BehaviorContainer.cpp" />
-    <ClCompile Include="BishopBehavior.cpp" />
+    <ClCompile Include="Behaviors\BehaviorContainer.cpp" />
+    <ClCompile Include="Behaviors\BishopBehavior.cpp" />
     <ClCompile Include="Chess-Example.cpp" />
     <ClCompile Include="Chessman.cpp" />
-    <ClCompile Include="ChessmanBehavior.cpp" />
     <ClCompile Include="ChessmanFactory.cpp" />
     <ClCompile Include="ClassicFieldFiller.cpp" />
     <ClCompile Include="IFieldFiller.cpp" />
-    <ClCompile Include="KingBehavior.cpp" />
-    <ClCompile Include="KnightBehavior.cpp" />
-    <ClCompile Include="PawnBehavior.cpp" />
-    <ClCompile Include="QueenBehavior.cpp" />
-    <ClCompile Include="RookBehavior.cpp" />
+    <ClCompile Include="Behaviors\KingBehavior.cpp" />
+    <ClCompile Include="Behaviors\KnightBehavior.cpp" />
+    <ClCompile Include="Behaviors\PawnBehavior.cpp" />
+    <ClCompile Include="Behaviors\QueenBehavior.cpp" />
+    <ClCompile Include="Behaviors\RookBehavior.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BehaviorContainer.h" />
-    <ClInclude Include="BishopBehavior.h" />
+    <ClInclude Include="Behaviors\BehaviorContainer.h" />
+    <ClInclude Include="Behaviors\BishopBehavior.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="ChassmansCharacters.h" />
     <ClInclude Include="Chessman.h" />
@@ -156,15 +155,15 @@
     <ClInclude Include="IIterator.h" />
     <ClInclude Include="LineArray.h" />
     <ClInclude Include="IDrawer.h" />
-    <ClInclude Include="IChessmanBehavior.h" />
+    <ClInclude Include="Behaviors\IChessmanBehavior.h" />
     <ClInclude Include="IFieldFiller.h" />
     <ClInclude Include="InputManager.h" />
-    <ClInclude Include="KingBehavior.h" />
-    <ClInclude Include="KnightBehavior.h" />
+    <ClInclude Include="Behaviors\KingBehavior.h" />
+    <ClInclude Include="Behaviors\KnightBehavior.h" />
     <ClInclude Include="SelectInfo.h" />
-    <ClInclude Include="PawnBehavior.h" />
-    <ClInclude Include="QueenBehavior.h" />
-    <ClInclude Include="RookBehavior.h" />
+    <ClInclude Include="Behaviors\PawnBehavior.h" />
+    <ClInclude Include="Behaviors\QueenBehavior.h" />
+    <ClInclude Include="Behaviors\RookBehavior.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

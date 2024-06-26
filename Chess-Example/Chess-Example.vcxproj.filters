@@ -42,28 +42,25 @@
     <ClCompile Include="Chess-Example.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BehaviorContainer.cpp">
+    <ClCompile Include="Behaviors\BehaviorContainer.cpp">
       <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="BishopBehavior.cpp">
+    <ClCompile Include="Behaviors\BishopBehavior.cpp">
       <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="ChessmanBehavior.cpp">
+    <ClCompile Include="Behaviors\KingBehavior.cpp">
       <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="KingBehavior.cpp">
+    <ClCompile Include="Behaviors\KnightBehavior.cpp">
       <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="KnightBehavior.cpp">
+    <ClCompile Include="Behaviors\PawnBehavior.cpp">
       <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="PawnBehavior.cpp">
+    <ClCompile Include="Behaviors\QueenBehavior.cpp">
       <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="QueenBehavior.cpp">
-      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="RookBehavior.cpp">
+    <ClCompile Include="Behaviors\RookBehavior.cpp">
       <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
     <ClCompile Include="Chessman.cpp">
@@ -101,28 +98,28 @@
     <ClInclude Include="SelectInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BehaviorContainer.h">
+    <ClInclude Include="Behaviors\BehaviorContainer.h">
       <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="BishopBehavior.h">
+    <ClInclude Include="Behaviors\BishopBehavior.h">
       <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="IChessmanBehavior.h">
+    <ClInclude Include="Behaviors\IChessmanBehavior.h">
       <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="KingBehavior.h">
+    <ClInclude Include="Behaviors\KingBehavior.h">
       <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="KnightBehavior.h">
+    <ClInclude Include="Behaviors\KnightBehavior.h">
       <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="PawnBehavior.h">
+    <ClInclude Include="Behaviors\PawnBehavior.h">
       <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="QueenBehavior.h">
+    <ClInclude Include="Behaviors\QueenBehavior.h">
       <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="RookBehavior.h">
+    <ClInclude Include="Behaviors\RookBehavior.h">
       <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
     <ClInclude Include="ChassmansCharacters.h">

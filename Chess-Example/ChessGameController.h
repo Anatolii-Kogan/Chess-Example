@@ -1,6 +1,6 @@
 #pragma once
 #include "Field.h"
-#include "BehaviorContainer.h"
+#include "../Chess-Example/Behaviors/BehaviorContainer.h"
 #include "SelectInfo.h"
 #include "IIterator.h"
 #include "ClassicFieldFiller.h"

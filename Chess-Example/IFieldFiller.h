@@ -1,5 +1,5 @@
 #pragma once
-#include "BehaviorContainer.h"
+#include "../Chess-Example/Behaviors/BehaviorContainer.h"
 #include "Chessman.h"
 
 using namespace chessmans;
