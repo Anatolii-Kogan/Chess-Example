@@ -22,8 +22,4 @@ namespace chessmans
 	{
 		return false;
 	}
-	ChessmanType RookBehavior::GetType() const
-	{
-		return ChessmanType::Rook;
-	}
 }

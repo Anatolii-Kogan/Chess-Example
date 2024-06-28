@@ -1,5 +1,5 @@
 #pragma once
-#include "IChessmanBehavior.h"
+#include "../Field-Module/IChessmanBehavior.h"
 
 namespace chessmans
 {
@@ -12,8 +12,6 @@ namespace chessmans
 
 		bool CanIgnoreObstacles() const override;
 		bool LockAttackMovement() const override;
-
-		ChessmanType GetType() const override;
 
 	private:
 		const int MAX_MOVE_DELTA = 1;

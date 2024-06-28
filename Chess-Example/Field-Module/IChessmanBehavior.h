@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "../ChessmanType.h"
 
 namespace chessmans
 {
@@ -12,7 +11,5 @@ namespace chessmans
 
 		virtual bool CanIgnoreObstacles() const = 0;
 		virtual bool LockAttackMovement() const = 0;
-
-		virtual ChessmanType GetType() const = 0;
 	};
 }

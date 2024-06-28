@@ -42,9 +42,6 @@
     <ClCompile Include="Chess-Example.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Behaviors\BehaviorContainer.cpp">
-      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
-    </ClCompile>
     <ClCompile Include="Behaviors\BishopBehavior.cpp">
       <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
@@ -63,15 +60,6 @@
     <ClCompile Include="Behaviors\RookBehavior.cpp">
       <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
     </ClCompile>
-    <ClCompile Include="Chessman.cpp">
-      <Filter>Source Files\Chessmans</Filter>
-    </ClCompile>
-    <ClCompile Include="ChessmanFactory.cpp">
-      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="IFieldFiller.cpp">
-      <Filter>Source Files\Field-Fillers</Filter>
-    </ClCompile>
     <ClCompile Include="ClassicFieldFiller.cpp">
       <Filter>Source Files\Field-Fillers</Filter>
     </ClCompile>
@@ -80,13 +68,13 @@
     <ClInclude Include="ClassicFieldFiller.h">
       <Filter>Header Files\Field-Fillers</Filter>
     </ClInclude>
-    <ClInclude Include="IFieldFiller.h">
+    <ClInclude Include="Field-Module\FieldFiller.h">
       <Filter>Header Files\Field-Fillers</Filter>
     </ClInclude>
-    <ClInclude Include="Cell.h">
+    <ClInclude Include="Field-Module\Cell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Field.h">
+    <ClInclude Include="Field-Module\Field.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ChessGameController.h">
@@ -98,13 +86,13 @@
     <ClInclude Include="SelectInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Behaviors\BehaviorContainer.h">
+    <ClInclude Include="Field-Module\BehaviorContainer.h">
       <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
     <ClInclude Include="Behaviors\BishopBehavior.h">
       <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
-    <ClInclude Include="Behaviors\IChessmanBehavior.h">
+    <ClInclude Include="Field-Module\IChessmanBehavior.h">
       <Filter>Header Files\Chessmans\Chessman-Behaviors</Filter>
     </ClInclude>
     <ClInclude Include="Behaviors\KingBehavior.h">
@@ -125,7 +113,7 @@
     <ClInclude Include="ChassmansCharacters.h">
       <Filter>Header Files\Chessmans</Filter>
     </ClInclude>
-    <ClInclude Include="Chessman.h">
+    <ClInclude Include="Field-Module\Chessman.h">
       <Filter>Header Files\Chessmans</Filter>
     </ClInclude>
     <ClInclude Include="ChessmanType.h">
@@ -145,6 +133,15 @@
     </ClInclude>
     <ClInclude Include="IIterator.h">
       <Filter>Header Files\Structs</Filter>
+    </ClInclude>
+    <ClInclude Include="CellForConsole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ICell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ChessmanForConsole.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

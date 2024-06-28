@@ -28,8 +28,4 @@ namespace chessmans
 	{
 		return false;
 	}
-	ChessmanType KingBehavior::GetType() const
-	{
-		return ChessmanType::King;
-	}
 }

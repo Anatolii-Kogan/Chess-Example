@@ -127,13 +127,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Behaviors\BehaviorContainer.cpp" />
     <ClCompile Include="Behaviors\BishopBehavior.cpp" />
     <ClCompile Include="Chess-Example.cpp" />
-    <ClCompile Include="Chessman.cpp" />
-    <ClCompile Include="ChessmanFactory.cpp" />
     <ClCompile Include="ClassicFieldFiller.cpp" />
-    <ClCompile Include="IFieldFiller.cpp" />
     <ClCompile Include="Behaviors\KingBehavior.cpp" />
     <ClCompile Include="Behaviors\KnightBehavior.cpp" />
     <ClCompile Include="Behaviors\PawnBehavior.cpp" />
@@ -141,22 +137,25 @@
     <ClCompile Include="Behaviors\RookBehavior.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Behaviors\BehaviorContainer.h" />
+    <ClInclude Include="CellForConsole.h" />
+    <ClInclude Include="ChessmanForConsole.h" />
+    <ClInclude Include="Field-Module\BehaviorContainer.h" />
     <ClInclude Include="Behaviors\BishopBehavior.h" />
-    <ClInclude Include="Cell.h" />
+    <ClInclude Include="Field-Module\Cell.h" />
     <ClInclude Include="ChassmansCharacters.h" />
-    <ClInclude Include="Chessman.h" />
+    <ClInclude Include="Field-Module\Chessman.h" />
     <ClInclude Include="ChessmanType.h" />
     <ClInclude Include="CircularList.h" />
     <ClInclude Include="ClassicFieldFiller.h" />
-    <ClInclude Include="Field.h" />
+    <ClInclude Include="Field-Module\Field.h" />
     <ClInclude Include="ChessGameController.h" />
     <ClInclude Include="FieldDrawer.h" />
+    <ClInclude Include="ICell.h" />
     <ClInclude Include="IIterator.h" />
     <ClInclude Include="LineArray.h" />
     <ClInclude Include="IDrawer.h" />
-    <ClInclude Include="Behaviors\IChessmanBehavior.h" />
-    <ClInclude Include="IFieldFiller.h" />
+    <ClInclude Include="Field-Module\IChessmanBehavior.h" />
+    <ClInclude Include="Field-Module\FieldFiller.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Behaviors\KingBehavior.h" />
     <ClInclude Include="Behaviors\KnightBehavior.h" />

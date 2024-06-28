@@ -29,9 +29,4 @@ namespace chessmans
 	{
 		return false;
 	}
-
-	ChessmanType BishopBehavior::GetType() const
-	{
-		return ChessmanType::Bishop;
-	}
 }

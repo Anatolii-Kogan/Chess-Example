@@ -1,20 +1,20 @@
 #pragma once
 #include "Chessman.h"
-#include <iostream>
-#include "IDrawer.h"
 
 namespace cells
 {
-	class Cell 
-		: public drawers::IDrawer
+	template<typename TChessman>
+	class Cell
 	{
-	private:
-		chessmans::Chessman* _chessman = nullptr;
+		//static_assert(std::is_base_of_v<Chessman, TChessman>, "TChessman must inherit from Chessman");
+
+	protected:
+		TChessman* _chessman = nullptr;
 	public:
 		~Cell() { DeleteChessman(); }
 
 		const auto* GetChessman() { return _chessman; }
-		void SetChessman(chessmans::Chessman* chessman)
+		void SetChessman(TChessman* chessman)
 		{
 			if (_chessman != nullptr)
 			{
@@ -32,7 +32,7 @@ namespace cells
 			return chessman;
 		}
 
-		static void ReplaceChessman(Cell* moveFrom, Cell* moveTo) { moveTo->SetChessman(moveFrom->RemoveChessman()); }
+		static void ReplaceChessman(Cell<TChessman>* moveFrom, Cell<TChessman>* moveTo) { moveTo->SetChessman(moveFrom->RemoveChessman()); }
 
 		void DeleteChessman()
 		{
@@ -43,20 +43,6 @@ namespace cells
 			}
 		}
 
-		void Draw() const override
-		{
-			if (_chessman != nullptr)
-			{
-				std::wcout << ' ' << _chessman->GetDraw() << ' ';
-			}
-			else
-			{
-				std::wcout << "   ";
-			}
-		}
-
-		int OccupiedByTeam() const { return _chessman->GetTeamIndex(); }
-		int OccupiedBy() const { return !IsEmpty() ? _chessman->GetType() : 0; }
 		bool IsEmpty() const { return _chessman == nullptr; }
 	};
 }

@@ -1,22 +1,24 @@
 ﻿#pragma once
 #include "IChessmanBehavior.h"
 #include <type_traits>
-#include <vector>
+#include <memory>
+#include <typeindex>
+#include <unordered_map>
 
 namespace chessmans
 {
 	class BehaviorContainer
 	{
 	private:
-		mutable std::vector<IChessmanBehavior*> _behaviors;
+		mutable std::unordered_map<std::type_index, IChessmanBehavior*> _behaviors;
 
 	public:
 		BehaviorContainer() = default;
 		~BehaviorContainer()
 		{
-			for (auto* behavior : _behaviors)
+			for (auto& pair : _behaviors)
 			{
-				delete behavior;
+				delete pair.second;
 			}
 			_behaviors.clear();
 		}
@@ -26,16 +28,25 @@ namespace chessmans
 		{
 			static_assert(std::is_base_of<IChessmanBehavior, TChessmanBehavior>::value, "Method for descendant of IChessmanBehavior");
 
-			for (auto& behavior : _behaviors)
+			std::type_index typeIndex(typeid(TChessmanBehavior));
+
+			/*for (auto& behavior : _behaviors)
 			{
 				if (auto casted = dynamic_cast<TChessmanBehavior*>(behavior))
 				{
 					return casted;
 				}
+			}*/
+
+			auto it = _behaviors.find(typeIndex);
+			if (it != _behaviors.end())
+			{
+				return static_cast<TChessmanBehavior*>(it->second);
 			}
 
 			TChessmanBehavior* instance = new TChessmanBehavior();
-			_behaviors.push_back(instance);
+			//_behaviors.push_back(instance);
+			_behaviors[typeIndex] = instance;
 			return instance;
 		}		
 	};

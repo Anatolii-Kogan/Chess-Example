@@ -1,12 +1,12 @@
-#include "BishopBehavior.h"
-#include "Chessman.h"
+#include "..//Chess-Example/Behaviors/PawnBehavior.h"
+#include "..//Chess-Example/Behaviors/KnightBehavior.h"
+#include "..//Chess-Example/Behaviors/BishopBehavior.h"
+#include "..//Chess-Example/Behaviors/RookBehavior.h"
+#include "..//Chess-Example/Behaviors/QueenBehavior.h"
+#include "..//Chess-Example/Behaviors/KingBehavior.h"
+#include "..//Chess-Example/Field-Module/Chessman.h"
 #include "ClassicFieldFiller.h"
-#include "IChessmanBehavior.h"
-#include "KingBehavior.h"
-#include "KnightBehavior.h"
-#include "PawnBehavior.h"
-#include "QueenBehavior.h"
-#include "RookBehavior.h"
+#include "..//Chess-Example/Field-Module/IChessmanBehavior.h"
 
 using namespace chessmans;
 
@@ -24,7 +24,7 @@ namespace fillers
         _bishopIndex = _knightIndex + extraChessmans + (chessmenFromOneSide % baseChessmenFromOneSide > 2 ? 1 : 0);
     }
 
-    Chessman* ClassicFieldFiller::GetChessmanByIndex() const
+    ChessmanForConsole* ClassicFieldFiller::GetChessmanByIndex() const
     {
         //Setup:
         int index = GetIndex();
@@ -42,7 +42,7 @@ namespace fillers
 
         int teamIndex = row > (SIZE / 2) ? TEAM_1 : TEAM_2;
 
-        auto chessman = new Chessman(teamIndex, attackDirX, attackDirY);
+        auto chessman = new ChessmanForConsole(teamIndex, attackDirX, attackDirY);
 
         //Set behavior:
         IChessmanBehavior* behavior = nullptr;

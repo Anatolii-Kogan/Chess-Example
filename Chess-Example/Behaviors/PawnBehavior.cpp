@@ -29,9 +29,4 @@ namespace chessmans
 	{
 		return true;
 	}
-
-	ChessmanType PawnBehavior::GetType() const
-	{
-		return ChessmanType::Pawn;
-	}
 }

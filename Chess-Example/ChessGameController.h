@@ -1,20 +1,26 @@
 #pragma once
-#include "Field.h"
-#include "../Chess-Example/Behaviors/BehaviorContainer.h"
-#include "SelectInfo.h"
-#include "IIterator.h"
+#include "../Chess-Example/CellForConsole.h"
+#include "../Chess-Example/ChessmanForConsole.h"
+#include "../Chess-Example/Field-Module/BehaviorContainer.h"
+#include "../Chess-Example/Field-Module/Field.h"
 #include "ClassicFieldFiller.h"
-#include "Cell.h"
-#include "Chessman.h"
+#include "IIterator.h"
 #include "InputManager.h"
+#include "SelectInfo.h"
 #include <stdexcept>
+
+using namespace chessmans;
+using namespace cells;
 
 namespace chessControllers
 {
 	class ChessGameController
 	{
+		static constexpr int FIELD_SIZE = 8;
+		using FieldForConsole = Field<FIELD_SIZE, FIELD_SIZE, CellForConsole, ChessmanForConsole>;
 	public:
-		ChessGameController(structs::IIterator<int>* movesOrder) : _field(Field<FIELD_SIZE, FIELD_SIZE>()), _movesOrder(movesOrder), _selectFirst(info::SelectInfo()), _selectSecond(info::SelectInfo())
+		ChessGameController(structs::IIterator<int>* movesOrder) : _field(FieldForConsole()),
+			_movesOrder(movesOrder), _selectFirst(info::SelectInfo<CellForConsole>()), _selectSecond(info::SelectInfo<CellForConsole>())
 		{
 			_behaviors = new BehaviorContainer();
 
@@ -44,16 +50,14 @@ namespace chessControllers
 		bool IsGameFinished() { return _isGameFinished; }
 		void PrintState() { _field.Draw(); }
 	private:
-		static constexpr int FIELD_SIZE = 8;
-
-		Field<FIELD_SIZE, FIELD_SIZE> _field;
+		FieldForConsole _field;
 		chessmans::BehaviorContainer* _behaviors;
 
 		structs::IIterator<int>* _movesOrder;
 		int _currentTeam;
 
-		info::SelectInfo _selectFirst;
-		info::SelectInfo _selectSecond;
+		info::SelectInfo<CellForConsole> _selectFirst;
+		info::SelectInfo<CellForConsole> _selectSecond;
 
 		bool _isGameFinished = false;
 
@@ -64,7 +68,7 @@ namespace chessControllers
 				int row, column;
 				input::InputManager::GetChessNotationInput<FIELD_SIZE, FIELD_SIZE>(row, column);
 
-				Cell& cell = _field.GetCell(row, column);
+				CellForConsole& cell = _field.GetCell(row, column);
 				if (ValidateSelection(cell))
 				{
 					if (_selectFirst.cell == nullptr)
@@ -80,7 +84,7 @@ namespace chessControllers
 			}
 		}
 
-		bool ValidateSelection(Cell& cell)
+		bool ValidateSelection(CellForConsole& cell)
 		{
 			if (ReadyToMove())
 			{
@@ -115,15 +119,16 @@ namespace chessControllers
 			bool result = false;
 			if (IsCastling(movable, validated))
 			{
-				MakeCastling(_selectFirst, _selectSecond, _field);
+				MakeCastling<FIELD_SIZE, FIELD_SIZE>(_selectFirst, _selectSecond, _field);
 				result = true;
 			}
 			else
 			{
-				bool tryAttackKing = validated != nullptr && validated->GetType() == chessmans::King;
+				//bool tryAttackKing = validated != nullptr && validated->GetType() == chessmans::King;
+				bool tryAttackKing = validated != nullptr;
 				if (ValidateMovement(movable, validated))
 				{
-					Cell::ReplaceChessman(_selectFirst.cell, _selectSecond.cell);
+					CellForConsole::ReplaceChessman(_selectFirst.cell, _selectSecond.cell);
 					_isGameFinished = tryAttackKing;
 					result = true;
 				}
@@ -142,7 +147,7 @@ namespace chessControllers
 			return result;
 		}
 
-		bool ValidateMovement(const chessmans::Chessman* movable, const chessmans::Chessman* validated)
+		bool ValidateMovement(const chessmans::ChessmanForConsole* movable, const chessmans::ChessmanForConsole* validated)
 		{
 			int directionX = _selectSecond.column - _selectFirst.column;
 			int directionY = _selectSecond.row - _selectFirst.row;
@@ -153,7 +158,7 @@ namespace chessControllers
 				int currentRow = _selectFirst.row + directionY;
 				int currentColumn = _selectFirst.column + directionX;
 
-				Cell* currentCell = &_field.GetCell(currentRow, currentColumn);
+				CellForConsole* currentCell = &_field.GetCell(currentRow, currentColumn);
 				while (currentCell != _selectSecond.cell)
 				{
 					if (!currentCell->IsEmpty())
@@ -179,7 +184,7 @@ namespace chessControllers
 			}
 		}
 
-		static bool IsCastling(const chessmans::Chessman* chessman1, const chessmans::Chessman* chessman2)
+		static bool IsCastling(const chessmans::ChessmanForConsole* chessman1, const chessmans::ChessmanForConsole* chessman2)
 		{
 			if (chessman1 == nullptr || chessman2 == nullptr ||
 				chessman1->IsDirty() || chessman2->IsDirty())
@@ -187,7 +192,7 @@ namespace chessControllers
 				return false;
 			}
 
-			switch (chessman1->GetType())
+			/*switch (chessman1->GetType())
 			{
 			case chessmans::King:
 				return chessman2->GetType() == chessmans::Rook;
@@ -197,13 +202,14 @@ namespace chessControllers
 
 			default:
 				return false;
-			}
+			}*/
+			return false;
 		}
 
 		template<int FIELD_SIZE_X, int FIELD_SIZE_Y>
-		static void MakeCastling(info::SelectInfo selectFirst, info::SelectInfo selectSecond, Field<FIELD_SIZE_X, FIELD_SIZE_Y>& field)
+		static void MakeCastling(info::SelectInfo<CellForConsole> selectFirst, info::SelectInfo<CellForConsole> selectSecond, FieldForConsole& field)
 		{
-			Cell* kingCell;
+			/*Cell* kingCell;
 			Cell* rookCell;
 
 			int kingMoveDirection;
@@ -230,7 +236,7 @@ namespace chessControllers
 			kingMoveDirection = kingMoveDirection > 0 ? 1 : -1;
 
 			Cell::ReplaceChessman(kingCell, &field.GetCell(selectFirst.row, selectFirst.column + 2 * kingMoveDirection));
-			Cell::ReplaceChessman(rookCell, &field.GetCell(selectFirst.row, selectFirst.column + kingMoveDirection));
+			Cell::ReplaceChessman(rookCell, &field.GetCell(selectFirst.row, selectFirst.column + kingMoveDirection));*/
 		}
 
 		bool ReadyToMove() { return _selectFirst.cell != nullptr && _selectSecond.cell != nullptr; }

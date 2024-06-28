@@ -23,8 +23,4 @@ namespace chessmans
 	{
 		return false;
 	}
-	ChessmanType QueenBehavior::GetType() const
-	{
-		return ChessmanType::Queen;
-	}
 }

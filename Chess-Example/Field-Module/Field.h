@@ -3,7 +3,8 @@
 
 #include "Cell.h"
 #include "FieldDrawer.h"
-#include "IFieldFiller.h"
+#include "FieldFiller.h"
+#include <type_traits>
 
 #ifdef DEBUG
 #include <stdexcept>
@@ -13,30 +14,29 @@ using namespace cells;
 
 namespace chessControllers
 {
-	template<int SIZE_X = 8, int SIZE_Y = 8>
-	class Field 
+	template<int SIZE_X = 8, int SIZE_Y = 8, typename TCell = Cell<Chessman>, typename TChessman = Chessman>
+	class Field
 		: public drawers::IDrawer
 	{
-	public:
-		explicit constexpr Field()
-		{
-			if (SIZE_X <= 0 || SIZE_Y <= 0) {
-				throw std::invalid_argument("Field size have to be >0");
-			}
-		}
+		static_assert(SIZE_X > 0 && SIZE_Y > 0, "Field size must be greater than 0");
+		static_assert(std::is_base_of_v<Cell<TChessman>, TCell>, "TCell must inherit from Cell<TChessman>");
 
-		void FillField(const fillers::IFieldFiller* filler)
+	public:
+		constexpr Field() noexcept = default;
+
+		void FillField(const fillers::FieldFiller<TChessman>* filler)
 		{
+
 			for (int i = SIZE_X * SIZE_Y - 1; i >= 0; --i)
 			{
 				(_field + i)->SetChessman(filler->MoveNext());
 			}
 		}
 
-		Cell& GetCell(int row, int column) { return _field[ GetIndex(row, column) ]; }
+		TCell& GetCell(int row, int column) { return _field[GetIndex(row, column)]; }
 
-		void Draw() const override 
-		{ 
+		void Draw() const override
+		{
 			for (int row = 0; row < SIZE_Y; ++row)
 			{
 				for (int column = 0; column < SIZE_X; ++column)
@@ -49,7 +49,7 @@ namespace chessControllers
 		}
 
 	private:
-		Cell _field[SIZE_X * SIZE_Y];
+		TCell _field[SIZE_X * SIZE_Y];
 
 		int GetIndex(int row, int column)
 		{
