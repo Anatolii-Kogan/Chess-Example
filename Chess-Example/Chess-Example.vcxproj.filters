@@ -22,9 +22,6 @@
     <Filter Include="Header Files\Chessmans\Chessman-Behaviors">
       <UniqueIdentifier>{cc90d664-8051-4058-b5bd-19c97952b9a4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Chessmans\Chessman-Behaviors">
-      <UniqueIdentifier>{d00dcca6-5a23-432b-ad4c-5e14a5554ad7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Field-Fillers">
       <UniqueIdentifier>{966f0e08-5695-4fd6-a1b7-f1a33409960d}</UniqueIdentifier>
     </Filter>
@@ -41,27 +38,6 @@
   <ItemGroup>
     <ClCompile Include="Chess-Example.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Behaviors\BishopBehavior.cpp">
-      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="Behaviors\KingBehavior.cpp">
-      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="Behaviors\KnightBehavior.cpp">
-      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="Behaviors\PawnBehavior.cpp">
-      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="Behaviors\QueenBehavior.cpp">
-      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="Behaviors\RookBehavior.cpp">
-      <Filter>Source Files\Chessmans\Chessman-Behaviors</Filter>
-    </ClCompile>
-    <ClCompile Include="ClassicFieldFiller.cpp">
-      <Filter>Source Files\Field-Fillers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

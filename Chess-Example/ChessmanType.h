@@ -1,6 +1,9 @@
 #pragma once
 namespace chessmans
 {
+	/// <summary>
+	/// convertation to int returns cost
+	/// </summary>
 	enum ChessmanType
 	{
 		None = 0,
@@ -9,6 +12,10 @@ namespace chessmans
 		Bishop = 3,
 		Rook = 4,
 		Queen = 8,
-		King = 34 //all chessmans's costs sum
+
+		/// <summary>
+		/// all chessmans's costs sum
+		/// </summary>
+		King = 34
 	};
 }

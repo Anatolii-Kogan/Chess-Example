@@ -127,14 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Behaviors\BishopBehavior.cpp" />
     <ClCompile Include="Chess-Example.cpp" />
-    <ClCompile Include="ClassicFieldFiller.cpp" />
-    <ClCompile Include="Behaviors\KingBehavior.cpp" />
-    <ClCompile Include="Behaviors\KnightBehavior.cpp" />
-    <ClCompile Include="Behaviors\PawnBehavior.cpp" />
-    <ClCompile Include="Behaviors\QueenBehavior.cpp" />
-    <ClCompile Include="Behaviors\RookBehavior.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CellForConsole.h" />

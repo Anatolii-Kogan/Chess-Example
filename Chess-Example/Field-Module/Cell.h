@@ -6,7 +6,7 @@ namespace cells
 	template<typename TChessman>
 	class Cell
 	{
-		//static_assert(std::is_base_of_v<Chessman, TChessman>, "TChessman must inherit from Chessman");
+		static_assert(std::is_convertible_v<TChessman*, chessmans::Chessman*>, "TChessman* must be convertible to Chessman*");
 
 	protected:
 		TChessman* _chessman = nullptr;
@@ -14,14 +14,14 @@ namespace cells
 		~Cell() { DeleteChessman(); }
 
 		const auto* GetChessman() { return _chessman; }
-		void SetChessman(TChessman* chessman)
+		void SetChessman(chessmans::Chessman* chessman)
 		{
 			if (_chessman != nullptr)
 			{
 				throw std::logic_error("You can't use this method to reassign chessman. Clean this Cell first!");
 			}
 
-			_chessman = chessman;
+			_chessman = static_cast<TChessman*>(chessman);
 		}
 
 		/// <returns>if there is chessman on that cell, return ptr on it; if not - return nullprt</returns>

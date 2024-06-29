@@ -27,7 +27,7 @@ namespace chessControllers
 			int teamIndex_1 = *(movesOrder->GetFirst());
 			int teamIndex_2 = *(movesOrder->GetLast());
 
-			fillers::ClassicFieldFiller filler(_behaviors, FIELD_SIZE, teamIndex_1, teamIndex_2);
+			fillers::ClassicFieldFiller<ChessmanForConsole> filler(_behaviors, FIELD_SIZE, teamIndex_1, teamIndex_2);
 			_field.FillField(&filler);
 
 			int* value;

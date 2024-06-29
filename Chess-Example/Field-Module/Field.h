@@ -19,12 +19,12 @@ namespace chessControllers
 		: public drawers::IDrawer
 	{
 		static_assert(SIZE_X > 0 && SIZE_Y > 0, "Field size must be greater than 0");
-		static_assert(std::is_base_of_v<Cell<TChessman>, TCell>, "TCell must inherit from Cell<TChessman>");
+		static_assert(std::is_convertible_v<TCell, Cell<TChessman>>, "TCell must be convertible to Cell<TChessman>");
 
 	public:
 		constexpr Field() noexcept = default;
 
-		void FillField(const fillers::FieldFiller<TChessman>* filler)
+		void FillField(const fillers::FieldFiller* filler)
 		{
 
 			for (int i = SIZE_X * SIZE_Y - 1; i >= 0; --i)

@@ -26,7 +26,7 @@ namespace chessmans
 		template<typename TChessmanBehavior>
 		TChessmanBehavior* GetOrCreate() const
 		{
-			static_assert(std::is_base_of<IChessmanBehavior, TChessmanBehavior>::value, "Method for descendant of IChessmanBehavior");
+			static_assert(std::is_convertible_v<TChessmanBehavior*, IChessmanBehavior*>, "TChessmanBehavior* must be convertible to IChessmanBehavior*");
 
 			std::type_index typeIndex(typeid(TChessmanBehavior));
 
