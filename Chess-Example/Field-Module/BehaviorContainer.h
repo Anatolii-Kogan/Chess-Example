@@ -30,14 +30,6 @@ namespace chessmans
 
 			std::type_index typeIndex(typeid(TChessmanBehavior));
 
-			/*for (auto& behavior : _behaviors)
-			{
-				if (auto casted = dynamic_cast<TChessmanBehavior*>(behavior))
-				{
-					return casted;
-				}
-			}*/
-
 			auto it = _behaviors.find(typeIndex);
 			if (it != _behaviors.end())
 			{
@@ -45,7 +37,6 @@ namespace chessmans
 			}
 
 			TChessmanBehavior* instance = new TChessmanBehavior();
-			//_behaviors.push_back(instance);
 			_behaviors[typeIndex] = instance;
 			return instance;
 		}		
