@@ -16,17 +16,11 @@
     <Filter Include="Header Files\Chessmans">
       <UniqueIdentifier>{06b0bbff-9040-4bd9-a44c-bf9267aa499d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Chessmans">
-      <UniqueIdentifier>{612d6c94-a4b4-4d4e-ad71-76a8010fe351}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Chessmans\Chessman-Behaviors">
       <UniqueIdentifier>{cc90d664-8051-4058-b5bd-19c97952b9a4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Field-Fillers">
       <UniqueIdentifier>{966f0e08-5695-4fd6-a1b7-f1a33409960d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Field-Fillers">
-      <UniqueIdentifier>{8ed76928-9b3a-48cd-9787-b38d22cceb7b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Structs">
       <UniqueIdentifier>{a72d829b-4c6f-4e2d-8e3f-bc3eedab007b}</UniqueIdentifier>
@@ -95,10 +89,10 @@
     <ClInclude Include="ChessmanType.h">
       <Filter>Header Files\Chessmans</Filter>
     </ClInclude>
-    <ClInclude Include="CircularList.h">
+    <ClInclude Include="Structs\CircularList.h">
       <Filter>Header Files\Structs</Filter>
     </ClInclude>
-    <ClInclude Include="LineArray.h">
+    <ClInclude Include="Structs\LineArray.h">
       <Filter>Header Files\Structs</Filter>
     </ClInclude>
     <ClInclude Include="FieldDrawer.h">
@@ -107,13 +101,10 @@
     <ClInclude Include="IDrawer.h">
       <Filter>Header Files\Drawers</Filter>
     </ClInclude>
-    <ClInclude Include="IIterator.h">
+    <ClInclude Include="Structs\IIterator.h">
       <Filter>Header Files\Structs</Filter>
     </ClInclude>
     <ClInclude Include="CellForConsole.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ICell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ChessmanForConsole.h">

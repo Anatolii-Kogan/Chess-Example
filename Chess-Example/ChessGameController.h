@@ -4,7 +4,7 @@
 #include "../Chess-Example/Field-Module/BehaviorContainer.h"
 #include "../Chess-Example/Field-Module/Field.h"
 #include "ClassicFieldFiller.h"
-#include "IIterator.h"
+#include "../Chess-Example/Structs/IIterator.h"
 #include "InputManager.h"
 #include "SelectInfo.h"
 #include <stdexcept>

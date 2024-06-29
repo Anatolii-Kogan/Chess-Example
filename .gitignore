@@ -1,4 +1,4 @@
-# Компилированные бинарные файлы (выполняемые и библиотеки)
+
 *.exe
 *.out
 *.app
@@ -6,21 +6,19 @@
 *.dylib
 *.dll
 
-# Компилированные объектные файлы
+
 *.o
 *.obj
 
-# Временные файлы компилятора
+
 *.gch
 *.pch
 
-# Каталоги и файлы CMake
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
 Makefile
 
-# Каталоги и файлы Autotools
 *.lo
 *.la
 *.al
@@ -28,11 +26,9 @@ autom4te.cache/
 *.in~
 *.swp
 
-# Логи и временные файлы
 *.log
 *.tmp
 
-# Каталоги и файлы среды разработки Visual Studio
 *.ncb
 *.sdf
 *.opensdf
@@ -45,14 +41,12 @@ autom4te.cache/
 .v17/
 x64/
 
-# Каталоги и файлы среды разработки CLion (JetBrains)
 .idea/
 *.iws
 *.iml
 *.ipr
 cmake-build-debug/
 
-# Каталоги и файлы среды разработки Eclipse
 .settings/
 .metadata/
 *.tmp
@@ -62,19 +56,15 @@ cmake-build-debug/
 *.log
 bin/
 
-# Каталоги и файлы Code::Blocks
 *.layout
 *.depend
 *.layout.*
 *.depend.*
 
-# Каталоги и файлы CodeLite
 *.project
 *.workspace
 
-# MacOS
 .DS_Store
 
-# Windows
 Thumbs.db
 ehthumbs.db

@@ -4,7 +4,7 @@
 #include <fcntl.h>
 #include <io.h>
 #include "ChessGameController.h"
-#include "CircularList.h"
+#include "../Chess-Example/Structs/CircularList.h"
 
 using namespace std;
 
