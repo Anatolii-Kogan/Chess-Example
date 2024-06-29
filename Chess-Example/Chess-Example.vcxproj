@@ -131,6 +131,7 @@
     <ClCompile Include="ChessGameController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Behaviors\BehaviorsIncluder.h" />
     <ClInclude Include="CastlingResolver.h" />
     <ClInclude Include="CellForConsole.h" />
     <ClInclude Include="ChessmanForConsole.h" />

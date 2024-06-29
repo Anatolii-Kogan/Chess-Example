@@ -1,11 +1,6 @@
 ﻿#pragma once
-#include "..//Chess-Example/Behaviors/PawnBehavior.h"
-#include "..//Chess-Example/Behaviors/KnightBehavior.h"
-#include "..//Chess-Example/Behaviors/BishopBehavior.h"
-#include "..//Chess-Example/Behaviors/RookBehavior.h"
-#include "..//Chess-Example/Behaviors/QueenBehavior.h"
-#include "..//Chess-Example/Behaviors/KingBehavior.h"
-#include "..//Chess-Example/Field-Module/IChessmanBehavior.h"
+#include "../Chess-Example/Behaviors/BehaviorsIncluder.h"
+#include "../Chess-Example/Field-Module/IChessmanBehavior.h"
 
 namespace chessmans
 {
