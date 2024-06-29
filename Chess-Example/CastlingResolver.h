@@ -57,7 +57,7 @@ namespace board
 
 		kingMoveDirection = kingMoveDirection > 0 ? 1 : -1;
 
-		CellForConsole::ReplaceChessman(kingCell, &field.GetCell(selectFirst.row, selectFirst.column + 2 * kingMoveDirection));
-		CellForConsole::ReplaceChessman(rookCell, &field.GetCell(selectFirst.row, selectFirst.column + kingMoveDirection));
+		CellForConsole::ReplaceChessman(kingCell, field.GetCell(selectFirst.row, selectFirst.column + 2 * kingMoveDirection));
+		CellForConsole::ReplaceChessman(rookCell, field.GetCell(selectFirst.row, selectFirst.column + kingMoveDirection));
 	}
 }

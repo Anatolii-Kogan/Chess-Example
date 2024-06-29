@@ -4,6 +4,7 @@
 #include "../Chess-Example/Field-Module/BehaviorContainer.h"
 #include "../Chess-Example/Field-Module/Field.h"
 #include "../Chess-Example/Structs/IIterator.h"
+#include "../Chess-Example/Drawers/FieldDrawer.h"
 #include "SelectInfo.h"
 
 using namespace chessmans;
@@ -37,7 +38,18 @@ namespace chessControllers
 			_selectSecond.Reset();
 		}
 
-		void PrintState() { _field.Draw(); }
+		void PrintState() 
+		{ 
+			for (int row = 0; row < FIELD_SIZE; ++row)
+			{
+				for (int column = 0; column < FIELD_SIZE; ++column)
+				{
+					drawers::FieldDrawer::DrawCell<FIELD_SIZE, FIELD_SIZE>(_field.GetCell(row, column), row, column);
+				}
+			}
+
+			drawers::FieldDrawer::DrawFieldBasement<FIELD_SIZE>();
+		}
 
 		bool IsGameFinished() { return _isGameFinished; }
 	private:
@@ -62,7 +74,7 @@ namespace chessControllers
 		bool Execute();
 		void SelectCells();
 
-		bool ValidateSelection(CellForConsole& cell);
+		bool ValidateSelection(CellForConsole* cell);
 		bool ValidateMovement(const ChessmanForConsole* movable, const ChessmanForConsole* validated);
 
 		bool ReadyToMove() { return _selectFirst.cell != nullptr && _selectSecond.cell != nullptr; }

@@ -2,7 +2,6 @@
 #define FIELD_H
 
 #include "Cell.h"
-#include "../Chess-Example/Drawers/FieldDrawer.h"
 #include "FieldFiller.h"
 #include <type_traits>
 
@@ -14,7 +13,6 @@ namespace board
 {
 	template<int SIZE_X = 8, int SIZE_Y = 8, typename TCell = Cell<Chessman>, typename TChessman = Chessman>
 	class Field
-		: public drawers::IDrawer
 	{
 		static_assert(SIZE_X > 0 && SIZE_Y > 0, "Field size must be greater than 0");
 		static_assert(std::is_convertible_v<TCell, Cell<TChessman>>, "TCell must be convertible to Cell<TChessman>");
@@ -31,19 +29,14 @@ namespace board
 			}
 		}
 
-		TCell& GetCell(int row, int column) { return _field[GetIndex(row, column)]; }
-
-		void Draw() const override
-		{
-			for (int row = 0; row < SIZE_Y; ++row)
+		TCell* GetCell(int row, int column) 
+		{ 
+			if (row >= SIZE_Y && column >= SIZE_X)
 			{
-				for (int column = 0; column < SIZE_X; ++column)
-				{
-					drawers::FieldDrawer::DrawCell<SIZE_X, SIZE_Y>(&(_field[row * SIZE_X + column]), row, column);
-				}
+				return nullptr;
 			}
 
-			drawers::FieldDrawer::DrawFieldBasement<SIZE_X>();
+			return &_field[GetIndex(row, column)];
 		}
 
 	private:
@@ -52,11 +45,11 @@ namespace board
 		int GetIndex(int row, int column)
 		{
 #ifdef DEBUG
-			if (row > SIZE_Y - 1)
+			if (row >= SIZE_Y)
 			{
 				throw std::out_of_range("Row out of range");
 			}
-			if (column > SIZE_X - 1)
+			if (column >= SIZE_X)
 			{
 				throw std::out_of_range("Column out of range");
 			}

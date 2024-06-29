@@ -70,22 +70,22 @@ namespace chessControllers
 			int row, column;
 			input::InputManager::GetChessNotationInput<FIELD_SIZE, FIELD_SIZE>(row, column);
 
-			CellForConsole& cell = _field.GetCell(row, column);
+			CellForConsole* cell = _field.GetCell(row, column);
 			if (ValidateSelection(cell))
 			{
 				if (_selectFirst.cell == nullptr)
 				{
-					_selectFirst.Set(&cell, row, column);
+					_selectFirst.Set(cell, row, column);
 					wcout << "Move to..." << endl;
 				}
 				else
 				{
-					_selectSecond.Set(&cell, row, column);
+					_selectSecond.Set(cell, row, column);
 				}
 			}
 		}
 	}
-	bool ChessGameController::ValidateSelection(CellForConsole& cell)
+	bool ChessGameController::ValidateSelection(CellForConsole* cell)
 	{
 		if (ReadyToMove())
 		{
@@ -95,13 +95,13 @@ namespace chessControllers
 
 		if (_selectFirst.cell == nullptr)
 		{
-			if (cell.IsEmpty())
+			if (cell->IsEmpty())
 			{
 				wcout << "Cell is empty" << endl;
 				return false;
 			}
 
-			if (cell.OccupiedByTeam() != _currentTeam)
+			if (cell->OccupiedByTeam() != _currentTeam)
 			{
 				wcout << "Now move team with index " << _currentTeam << endl;
 				return false;
@@ -121,7 +121,7 @@ namespace chessControllers
 			int currentRow = _selectFirst.row + directionY;
 			int currentColumn = _selectFirst.column + directionX;
 
-			CellForConsole* currentCell = &_field.GetCell(currentRow, currentColumn);
+			CellForConsole* currentCell = _field.GetCell(currentRow, currentColumn);
 			while (currentCell != _selectSecond.cell)
 			{
 				if (!currentCell->IsEmpty())
@@ -133,7 +133,7 @@ namespace chessControllers
 				currentRow += directionY;
 				currentColumn += directionX;
 
-				currentCell = &_field.GetCell(currentRow, currentColumn);
+				currentCell = _field.GetCell(currentRow, currentColumn);
 			}
 		}
 
