@@ -1,6 +1,6 @@
 #pragma once
 #include "../Chess-Example/Field-Module/Cell.h"
-#include "IDrawer.h"
+#include "../Chess-Example/Drawers/IDrawer.h"
 #include "ChessmanForConsole.h"
 #include <iostream>
 #include "ChessmanType.h"
