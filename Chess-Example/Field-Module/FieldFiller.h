@@ -1,6 +1,6 @@
 #pragma once
-#include "../Field-Module/BehaviorContainer.h"
-#include "../Field-Module/Chessman.h"
+#include "BehaviorContainer.h"
+#include "Chessman.h"
 using namespace chessmans;
 
 namespace fillers
