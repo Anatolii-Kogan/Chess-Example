@@ -10,9 +10,7 @@
 #include <stdexcept>
 #endif
 
-using namespace cells;
-
-namespace chessControllers
+namespace board
 {
 	template<int SIZE_X = 8, int SIZE_Y = 8, typename TCell = Cell<Chessman>, typename TChessman = Chessman>
 	class Field

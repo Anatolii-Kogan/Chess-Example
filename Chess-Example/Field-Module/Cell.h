@@ -1,7 +1,9 @@
 #pragma once
 #include "Chessman.h"
+#include <type_traits>
+#include <stdexcept>
 
-namespace cells
+namespace board
 {
 	template<typename TChessman>
 	class Cell

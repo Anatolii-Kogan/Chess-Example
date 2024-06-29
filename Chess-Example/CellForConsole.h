@@ -5,7 +5,7 @@
 #include <iostream>
 #include "ChessmanType.h"
 
-namespace cells
+namespace board
 {
 	class CellForConsole 
 		:  public Cell<chessmans::ChessmanForConsole>, public drawers::IDrawer

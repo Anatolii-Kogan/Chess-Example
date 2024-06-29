@@ -33,6 +33,9 @@
     <ClCompile Include="Chess-Example.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ChessGameController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClassicFieldFiller.h">
@@ -108,6 +111,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ChessmanForConsole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CastlingResolver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

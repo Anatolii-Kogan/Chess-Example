@@ -128,8 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Chess-Example.cpp" />
+    <ClCompile Include="ChessGameController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CastlingResolver.h" />
     <ClInclude Include="CellForConsole.h" />
     <ClInclude Include="ChessmanForConsole.h" />
     <ClInclude Include="Field-Module\BehaviorContainer.h" />
