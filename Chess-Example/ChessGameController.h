@@ -18,6 +18,7 @@ namespace chessControllers
 	{
 		static constexpr int FIELD_SIZE = 8;
 		using FieldForConsole = Field<FIELD_SIZE, FIELD_SIZE, CellForConsole, ChessmanForConsole>;
+
 	public:
 		ChessGameController(structs::IIterator<int>* movesOrder) : _field(FieldForConsole()),
 			_movesOrder(movesOrder), _selectFirst(info::SelectInfo<CellForConsole>()), _selectSecond(info::SelectInfo<CellForConsole>())
@@ -124,8 +125,7 @@ namespace chessControllers
 			}
 			else
 			{
-				//bool tryAttackKing = validated != nullptr && validated->GetType() == chessmans::King;
-				bool tryAttackKing = validated != nullptr;
+				bool tryAttackKing = validated != nullptr && validated->GetType() == chessmans::King;
 				if (ValidateMovement(movable, validated))
 				{
 					CellForConsole::ReplaceChessman(_selectFirst.cell, _selectSecond.cell);
@@ -192,7 +192,7 @@ namespace chessControllers
 				return false;
 			}
 
-			/*switch (chessman1->GetType())
+			switch (chessman1->GetType())
 			{
 			case chessmans::King:
 				return chessman2->GetType() == chessmans::Rook;
@@ -202,15 +202,15 @@ namespace chessControllers
 
 			default:
 				return false;
-			}*/
+			}
 			return false;
 		}
 
 		template<int FIELD_SIZE_X, int FIELD_SIZE_Y>
 		static void MakeCastling(info::SelectInfo<CellForConsole> selectFirst, info::SelectInfo<CellForConsole> selectSecond, FieldForConsole& field)
 		{
-			/*Cell* kingCell;
-			Cell* rookCell;
+			CellForConsole* kingCell;
+			CellForConsole* rookCell;
 
 			int kingMoveDirection;
 			switch (selectFirst.cell->OccupiedBy())
@@ -235,8 +235,8 @@ namespace chessControllers
 
 			kingMoveDirection = kingMoveDirection > 0 ? 1 : -1;
 
-			Cell::ReplaceChessman(kingCell, &field.GetCell(selectFirst.row, selectFirst.column + 2 * kingMoveDirection));
-			Cell::ReplaceChessman(rookCell, &field.GetCell(selectFirst.row, selectFirst.column + kingMoveDirection));*/
+			CellForConsole::ReplaceChessman(kingCell, &field.GetCell(selectFirst.row, selectFirst.column + 2 * kingMoveDirection));
+			CellForConsole::ReplaceChessman(rookCell, &field.GetCell(selectFirst.row, selectFirst.column + kingMoveDirection));
 		}
 
 		bool ReadyToMove() { return _selectFirst.cell != nullptr && _selectSecond.cell != nullptr; }

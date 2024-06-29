@@ -39,6 +39,7 @@ autom4te.cache/
 *.suo
 *.VC.db
 *.VC.opendb
+*.vcxproj.user
 .vscode/
 .vs/
 .v17/

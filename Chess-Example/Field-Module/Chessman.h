@@ -36,7 +36,12 @@ namespace chessmans
 
 		bool CanIgnoreObstacles() const { return _behavior->CanIgnoreObstacles(); }
 
-		void SetBehavior(IChessmanBehavior* behavior) { _behavior = behavior; }
+		void SetBehavior(IChessmanBehavior* behavior) 
+		{ 
+			_behavior = behavior;
+			OnBehaviorSet();
+		}
+		virtual void OnBehaviorSet() {};
 
 		virtual bool ValidateMove(int directionX, int directionY) const
 		{

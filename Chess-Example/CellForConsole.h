@@ -3,6 +3,7 @@
 #include "IDrawer.h"
 #include "ChessmanForConsole.h"
 #include <iostream>
+#include "ChessmanType.h"
 
 namespace cells
 {
@@ -12,7 +13,7 @@ namespace cells
 	{
 	public:
 		int OccupiedByTeam() const { return _chessman->GetTeamIndex(); }
-		//int OccupiedBy() const { return !IsEmpty() ? _chessman->GetType() : 0; }
+		chessmans::ChessmanType OccupiedBy() const { return !IsEmpty() ? _chessman->GetType() : chessmans::None; }
 
 		void Draw() const override
 		{
