@@ -1,0 +1,3 @@
+[submodule "Chess-Example/Field-Module"]
+	path = Chess-Example/Field-Module
+	url = https://github.com/Anatolii-Kogan/Field-Module.git
