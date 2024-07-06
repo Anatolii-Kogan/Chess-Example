@@ -9,6 +9,7 @@
 #include "InputManager.h"
 #include "SelectInfo.h"
 #include <stdexcept>
+#include "../Chess-Example/Behaviors/QueenBehavior.h"
 
 using namespace chessmans;
 using namespace board;
@@ -56,7 +57,8 @@ namespace chessControllers
 		{
 			if (movable->GetType() == chessmans::Pawn && (_selectFirst.row == 1 || _selectFirst.row == FIELD_SIZE))
 			{
-				//TODO: reset pawn on queen/knight/bishop
+				//TODO: reset pawn on queen/knight/bishop by player selection
+				movable->SetBehavior(_behaviors->GetOrCreate<QueenBehavior>());
 			}
 		}
 

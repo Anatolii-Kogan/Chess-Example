@@ -15,6 +15,12 @@ namespace chessmans
 		wchar_t _chassmanCharacter = L' ';
 		ChessmanType _type = None;
 
+		void OnBehaviorSet() override
+		{
+			_chassmanCharacter = ChassmansCharacters::GetCharacter(_behavior, _teamIndex);
+			_type = ConvertToType(_behavior);
+		}
+
 	public:
 		ChessmanForConsole(int teamIndex, int forwardX, int forwardY) 
 			: Chessman::Chessman(forwardX, forwardY), _teamIndex(teamIndex)
@@ -23,12 +29,6 @@ namespace chessmans
 		ChessmanForConsole(int teamIndex, int forwardX, int forwardY, IChessmanBehavior* behavior)
 			: Chessman::Chessman(forwardX, forwardY, behavior), _teamIndex(teamIndex)
 		{}
-
-		void OnBehaviorSet() override
-		{
-			_chassmanCharacter = ChassmansCharacters::GetCharacter(_behavior, _teamIndex);
-			_type = ConvertToType(_behavior);
-		}
 
 		int GetTeamIndex() const { return _teamIndex; }
 		bool IsFriendly(const ChessmanForConsole* cellOccupant) const { return _teamIndex == (*cellOccupant)._teamIndex; }
